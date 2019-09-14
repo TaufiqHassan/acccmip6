@@ -29,7 +29,7 @@ Features
 Installation
 ------------
 
- ``pip install acccmip6``
+``pip install acccmip6``
 
 Usage
 -----
@@ -58,4 +58,4 @@ License
 -------
 
 This code is licensed under the `MIT License`_.
-.. _MIT License: https://opensource.org/licenses/MIT
+.. _`MIT License`: https://opensource.org/licenses/MIT
