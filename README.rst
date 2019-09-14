@@ -58,4 +58,5 @@ License
 -------
 
 This code is licensed under the `MIT License`_.
+
 .. _`MIT License`: https://opensource.org/licenses/MIT
