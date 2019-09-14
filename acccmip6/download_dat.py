@@ -4,10 +4,12 @@ Created on Thu Sep  5 21:05:20 2019
 
 @author: Taufiq
 """
-
+try:
+    import urllib.request as urlrequest
+except:
+    import urllib as urlrequest
 import os, sys
 import re
-import urllib.request
 import time
 
 from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb
@@ -35,7 +37,7 @@ def dl_cmip6(durl, dir_path):
         
         if (not os.path.exists(dir_path+durl.split('/')[len(durl.split('/'))-1])):
             print("\n\n"+durl.split('/')[len(durl.split('/'))-1]+" is available!\n\nDownloading file . . .\n")
-            urllib.request.urlretrieve(durl,durl.split('/')[len(durl.split('/'))-1],reporthook=dlControl)
+            urlrequest.urlretrieve(durl,durl.split('/')[len(durl.split('/'))-1],reporthook=dlControl)
         else:
             print("\n"+durl.split('/')[len(durl.split('/'))-1]+" already exists!\n")         
     

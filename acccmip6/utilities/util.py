@@ -4,7 +4,10 @@ Created on Wed Sep  4 17:43:49 2019
 
 @author: Taufiq
 """
-from urllib.request import urlopen # web scraping
+try:
+    from urllib.request import urlopen # web scraping
+except:
+    from urllib import urlopen
 import os, sys
 import requests
 import urllib.request
