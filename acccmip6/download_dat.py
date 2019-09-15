@@ -133,16 +133,16 @@ def DownloadCmip6(**kwargs):
             n=n+1
         except TooSlowException:
             print("Removing file . . .\n")
-            os.remove(re.findall(_var+"_.*",url)[0])
+            os.remove(url.split('/')[len(url.split('/'))-1])
             m=m+1
             startTime = time.time()
         except KeyboardInterrupt:
             print("Interrupted! Removing file . . .\n")
-            os.remove(re.findall(_var+"_.*",url)[0])
+            os.remove(url.split('/')[len(url.split('/'))-1])
             break
         except:
             m=m+1
-            os.remove(re.findall(_var+"_.*",url)[0])
+            os.remove(url.split('/')[len(url.split('/'))-1])
             pass
     print("\nFinished downloading.")
     print("\n\nDownloaded ",n," out of ",n+m," files.")
