@@ -5,6 +5,7 @@ Created on Tue Sep  3 18:39:39 2019
 import re
 import pandas as pd # pandas for data handling
 import pkg_resources
+import requests
 
 from acccmip6.utilities.util import _fetch_url
 
@@ -12,7 +13,27 @@ class CMIP6DB:
     
     _Turl = "https://rawgit.com/WCRP-CMIP/CMIP6_CVs/master/src/CMIP6_source_id.html"
     _ETurl = "https://rawgit.com/WCRP-CMIP/CMIP6_CVs/master/src/CMIP6_experiment_id.html"
-    _Curl = "https://esgf-data.dkrz.de/search/cmip6-dkrz/"
+    url3_4 = "https://esgf-data.dkrz.de/search/cmip6-dkrz/"
+    url3_3 = "https://esgf-index1.ceda.ac.uk/search/cmip6-ceda/"
+    url3_1 = "https://esgf-node.llnl.gov/search/cmip6/"
+    url3_2 = "https://esgf-node.ipsl.upmc.fr/search/cmip6-ipsl/"
+    try:
+        if (requests.get(url3_1,timeout=10)):
+            _Curl = url3_1
+    except:
+        try:
+            if (requests.get(url3_2,timeout=10)):
+                _Curl = url3_2
+        except:
+            try:
+                if (requests.get(url3_3,timeout=10)):
+                    _Curl = url3_3
+            except:
+                try:
+                    if (requests.get(url3_4,timeout=10)):
+                        _Curl = url3_4
+                except:
+                    print("\nAll servers down!!\nCheck back later.")
     
     def __init__(self, **options):
         self._total = 0

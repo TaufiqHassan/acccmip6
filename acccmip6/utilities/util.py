@@ -72,11 +72,31 @@ class _dir_path(object):
             os.makedirs(dir_path)
         return dir_path
 
-        
 class _Construct_urls(object):
     
     _limit = 10000
-    _Durl = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
+    
+    url4_1 = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
+    url4_2 = "https://esgf-node.ipsl.upmc.fr/esg-search/wget?project=CMIP6"
+    url4_3 = "https://esgf-index1.ceda.ac.uk/esg-search/wget?project=CMIP6"
+    url4_4 = "https://esgf-data.dkrz.de/esg-search/wget?project=CMIP6"
+    try:
+        if (requests.get(url4_1,timeout=10)):
+            _Durl = url4_1
+    except:
+        try:
+            if (requests.get(url4_2,timeout=10)):
+                _Durl = url4_2
+        except:
+            try:
+                if (requests.get(url4_3,timeout=10)):
+                    _Durl = url4_3
+            except:
+                try:
+                    if (requests.get(url4_4,timeout=10)):
+                        _Durl = url4_4
+                except:
+                    print("\nAll servers down!!\nCheck back later.")    
     
     def __init__(self,var,mod,realm,exp,freq):
          self.var = var

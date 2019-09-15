@@ -17,13 +17,13 @@ def SearchCmip6(**kwargs):
         _realm = kwargs.get('realm', None)
         _check = kwargs.get('check', None)
         _desc = kwargs.get('desc', None)
-        
-        print('\n'+color.UNDERLINE+color.BOLD+'TIPS:'+color.END+" If you are not sure about what you are looking for use CMIP6DB module \n      to look for currently avalable models/experiments/variables and so on . . ."+color.END)
-        
+
         search=SearchDB()
         if (_check == 'Yes') or (_check == 'yes'):
+            print('\n'+color.UNDERLINE+color.BOLD+'TIPS:'+color.END+" If you are not sure about what you are looking for use CMIP6DB module \n      to look for currently available models/experiments/variables and so on . . ."+color.END)
             search._set_check('Yes')
         else:
+            print('\n'+color.UNDERLINE+color.BOLD+'TIPS:'+color.END+" Use the check (-c) argument to check your inputs."+color.END)
             search._set_check('No')
         if (_mod != None):
             try:
