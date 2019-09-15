@@ -52,24 +52,24 @@ class HidePrint:
 class _dir_path(object):
     
     @staticmethod
-    def get_dir(path):
+    def _get_dir(path):
         if (path == ''):
             p=Path('.')
-            dir_path = p.absolute() / 'CMIP6' / 'tempDir'
+            dir_path = p.absolute() / 'CMIP6'
         else:
-            dir_path = path
+            dir_path = Path(path)
         return dir_path
     
-    def make_dir(self):
+    def _make_dir(self):
         p=Path('.')
-        print("\nCurrent directory: ", p)
-        print("\nDefault directory: ", p.absolute() / 'CMIP6' / 'tempDir')
+        print("\nCurrent directory: ", p.absolute())
+        print("\nDefault directory: ", p.absolute() / 'CMIP6')
         path = input("Please specify a directory here:\n")
-        dir_path = _dir_path.get_dir(path)
+        dir_path = _dir_path._get_dir(path)
         print("Selected directory: ", dir_path)
         if not os.path.exists(dir_path):
-            print("\n"+dir_path+" doesn't exist. Creating one...\n")
-            os.makedirs(dir_path)
+            print("\n"+str(dir_path)+" doesn't exist. Creating one...\n")
+            os.makedirs(str(dir_path))
         return dir_path
 
 class _Construct_urls(object):
@@ -145,13 +145,14 @@ class _Construct_urls(object):
         url = self._get_url()
         r = requests.get(url)
         if (r.status_code == 200):
-            dir_path = os.getcwd()
-            urllib.request.urlretrieve(url, str(dir_path)+"wget_script.sh")
-        with open(str(dir_path)+"wget_script.sh") as f:
+            p = Path('.')
+            dir_path = p.absolute() / 'wget_script.sh'
+            urllib.request.urlretrieve(url, str(dir_path))
+        with open(str(dir_path)) as f:
             urls = f.read()
             links = re.findall('http://.*.nc',urls)
             f.close()
-        os.remove(str(dir_path)+"wget_script.sh")
+        os.remove(str(dir_path))
         return links
 
 class _extract_info:

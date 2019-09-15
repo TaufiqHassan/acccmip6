@@ -23,5 +23,5 @@ def test_url_getter():
 def test_dir_path():
     d = _dir_path()
     p=Path('.')
-    assert d.get_dir('') == p.absolute() / 'CMIP6' / 'tempDir'
+    assert d._get_dir('') == p.absolute() / 'CMIP6'
     

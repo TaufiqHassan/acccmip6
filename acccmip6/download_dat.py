@@ -11,6 +11,7 @@ except:
 import os, sys
 import re
 import time
+from pathlib import Path
 
 from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb
 from acccmip6.utilities.c6db import SearchDB
@@ -35,7 +36,7 @@ def dlControl(count, blockSize, totalSize):
 
 def dl_cmip6(durl, dir_path):
         
-        if (not os.path.exists(dir_path+durl.split('/')[len(durl.split('/'))-1])):
+        if (not os.path.exists(str(dir_path)+durl.split('/')[len(durl.split('/'))-1])):
             print("\n\n"+durl.split('/')[len(durl.split('/'))-1]+" is available!\n\nDownloading file . . .\n")
             urlrequest.urlretrieve(durl,durl.split('/')[len(durl.split('/'))-1],reporthook=dlControl)
         else:
@@ -58,8 +59,6 @@ def DownloadCmip6(**kwargs):
         search._set_check('Yes')
     else:
         search._set_check('No')
-    if (_mod != None):
-        search.model=_mod
     if (_mod != None):
             try:
                 search.model=_mod
@@ -115,12 +114,14 @@ def DownloadCmip6(**kwargs):
               'models/experiments/variables and so on . . .')
         raise Exception('No files were found that matched the query ')
     
-    dir_path = path
-    if (dir_path == None):
-        dir_path = _dir_path().make_dir()
-    elif (os.path.isdir(dir_path) == False):
+    if (path == None):
+        dir_path = _dir_path()._make_dir()
+    else:
+        dir_path = Path(path)
+    
+    if not os.path.isdir(dir_path):
         print('creating ', dir_path)
-        os.mkdir(dir_path)
+        os.makedirs(str(dir_path))
         
     os.chdir(dir_path) 
     n = 0
