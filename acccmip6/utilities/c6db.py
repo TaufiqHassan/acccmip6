@@ -18,6 +18,7 @@ class SearchDB(object):
         self._exp = kwargs.get('experiment', None)
         self._freq = kwargs.get('frequency', None)
         self._realm = kwargs.get('realm', None)
+        self.n_files = kwargs.get('n_files', None)
 
     @classmethod
     def _set_check(cls, val):
@@ -105,7 +106,7 @@ class SearchDB(object):
         return links
     
     def get_info(self):
-        info = _extract_info(self._var, self._mod, self._realm, self._exp, self._freq)._get_info()
+        info = _extract_info(self._var, self._mod, self._realm, self._exp, self._freq, self.n_files)._get_info()
         return info
     
     def get_url(self):

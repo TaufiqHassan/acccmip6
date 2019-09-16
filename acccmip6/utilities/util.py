@@ -4,10 +4,8 @@ Created on Wed Sep  4 17:43:49 2019
 
 @author: Taufiq
 """
-try:
-    from urllib.request import urlopen # web scraping
-except:
-    from urllib import urlopen
+
+from urllib.request import urlopen # web scraping
 import os, sys
 import requests
 import urllib.request
@@ -188,16 +186,18 @@ class _Construct_urls(object):
 
 class _extract_info:
     
-    def __init__(self,var,mod,realm,exp,freq):
+    def __init__(self,var,mod,realm,exp,freq,n_files):
          self.var = var
          self.mod = mod
          self.realm = realm
          self.exp = exp
          self.freq = freq
+         self.n_files = n_files
     
     def _get_info(self):
          links = []
          links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget()
+         n_files=len(links)
          _mod=set()
          _realm=set()
          _exp=set()
@@ -238,7 +238,7 @@ class _extract_info:
                      _var.add(data[0].split('/')[(len(data[0].split('/')))-1])
                      _freq.add(data[0].split('/')[7])
             
-         return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq))
+         return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq),n_files)
    
 class TooSlowException(Exception):
     pass

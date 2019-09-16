@@ -76,7 +76,7 @@ def SearchCmip6(**kwargs):
         print(color.LGREEN+"\n\n Currently available models based on your search: \n\n"+color.END,info.mod)
         print(color.LGREEN+"\nCurrently available variables based on your search: \n\n"+color.END,info.var)
         print(color.LGREEN+"\nCurrently available experiments based on your search: \n\n"+color.END,info.exp,"\n\n")
-        print(color.LGREEN+"\nNumber of files:"+color.END, len(search.get_links()),"\n\n")
+        print(color.LGREEN+"\nNumber of files:"+color.END, info.n_files,"\n\n")
         if (_desc != None):
             print(color.YELLOW+"< < < Here are the experiment descriptions > > >\033[0m")
             for item in info.exp:
