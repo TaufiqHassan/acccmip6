@@ -5,35 +5,14 @@ Created on Tue Sep  3 18:39:39 2019
 import re
 import pandas as pd # pandas for data handling
 import pkg_resources
-import requests
 
-from acccmip6.utilities.util import _fetch_url
+from acccmip6.utilities.util import _fetch_url, _choose_server
 
 class CMIP6DB:
     
     _Turl = "https://rawgit.com/WCRP-CMIP/CMIP6_CVs/master/src/CMIP6_source_id.html"
     _ETurl = "https://rawgit.com/WCRP-CMIP/CMIP6_CVs/master/src/CMIP6_experiment_id.html"
-    url3_4 = "https://esgf-data.dkrz.de/search/cmip6-dkrz/"
-    url3_3 = "https://esgf-index1.ceda.ac.uk/search/cmip6-ceda/"
-    url3_1 = "https://esgf-node.llnl.gov/search/cmip6/"
-    url3_2 = "https://esgf-node.ipsl.upmc.fr/search/cmip6-ipsl/"
-    try:
-        if (requests.get(url3_1,timeout=10)):
-            _Curl = url3_1
-    except:
-        try:
-            if (requests.get(url3_2,timeout=10)):
-                _Curl = url3_2
-        except:
-            try:
-                if (requests.get(url3_3,timeout=10)):
-                    _Curl = url3_3
-            except:
-                try:
-                    if (requests.get(url3_4,timeout=10)):
-                        _Curl = url3_4
-                except:
-                    print("\nAll servers down!!\nCheck back later.")
+    _Curl = "https://esgf-node.llnl.gov/search/cmip6/"
     
     def __init__(self, **options):
         self._total = 0
@@ -47,13 +26,23 @@ class CMIP6DB:
         return cls._curl
         
     def available_models(self):
-        with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
-            self._avail = len(re.findall('id="checkbox_source_id_',self._fdata))
-            print("\nCurrently ", self._avail," models has outputs!\n")
-            for zz in range(self._avail):
-                self._holder.append(self._fdata.split('checkbox_source_id_')[zz+2].split('" name="')[0])
-            print("Available models: \n\n")
-            return self._holder
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_source_id_',self._fdata))
+                print("\nCurrently ", self._avail," models has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_source_id_')[zz+2].split('" name="')[0])
+                print("Available models: \n\n")
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_source_id_',self._fdata))
+                print("\nCurrently ", self._avail," models has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_source_id_')[zz+2].split('" name="')[0])
+                print("Available models: \n\n")
+                return self._holder
     
     def all_models(self):
         with _fetch_url(self._set_curl(self._Turl)) as self._fdata:
@@ -65,13 +54,23 @@ class CMIP6DB:
             return self._holder
             
     def available_experiments(self):
-        with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
-            self._avail = len(re.findall('id="checkbox_experiment_id_',self._fdata))
-            print("\nCurrently ", self._avail," experiments has outputs!\n")
-            for zz in range(self._avail):
-                self._holder.append(self._fdata.split('checkbox_experiment_id_')[zz+2].split('" name="')[0])
-            print("Available experiments: \n\n")
-            return self._holder
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_experiment_id_',self._fdata))
+                print("\nCurrently ", self._avail," experiments has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_experiment_id_')[zz+2].split('" name="')[0])
+                print("Available experiments: \n\n")
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_experiment_id_',self._fdata))
+                print("\nCurrently ", self._avail," experiments has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_experiment_id_')[zz+2].split('" name="')[0])
+                print("Available experiments: \n\n")
+                return self._holder
     
     def all_experiments(self):
         with _fetch_url(self._set_curl(self._ETurl)) as self._fdata:
@@ -83,27 +82,53 @@ class CMIP6DB:
             return self._holder
             
     def CMIP6_variables(self):
-        with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
-            self._avail = len(re.findall('id="checkbox_variable_id_',self._fdata))
-            print("\nCurrently ", self._avail," variables has outputs!\n")
-            for zz in range(self._avail):
-                self._holder.append(self._fdata.split('checkbox_variable_id_')[zz+2].split('" name="')[0])
-            print("Available variables: \n\n")
-            return self._holder
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_variable_id_',self._fdata))
+                print("\nCurrently ", self._avail," variables has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_variable_id_')[zz+2].split('" name="')[0])
+                print("Available variables: \n\n")
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_variable_id_',self._fdata))
+                print("\nCurrently ", self._avail," variables has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_variable_id_')[zz+2].split('" name="')[0])
+                print("Available variables: \n\n")
+                return self._holder
         
     def available_frequencies(self):
-        with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
-            self._avail = len(re.findall('id="checkbox_frequency_',self._fdata))
-            for zz in range(self._avail):
-                self._holder.append(self._fdata.split('checkbox_frequency_')[zz+2].split('" name="')[0])
-            return self._holder
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_frequency_',self._fdata))
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_frequency_')[zz+2].split('" name="')[0])
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_frequency_',self._fdata))
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_frequency_')[zz+2].split('" name="')[0])
+                return self._holder
         
     def available_realmns(self):
-        with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
-            self._avail = len(re.findall('id="checkbox_realm_',self._fdata))
-            for zz in range(self._avail):
-                self._holder.append(self._fdata.split('checkbox_realm_')[zz+2].split('" name="')[0])
-            return self._holder
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_realm_',self._fdata))
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_realm_')[zz+2].split('" name="')[0])
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_realm_',self._fdata))
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_realm_')[zz+2].split('" name="')[0])
+                return self._holder
     
     @staticmethod
     def _get_definition(exp):

@@ -72,31 +72,55 @@ class _dir_path(object):
             os.makedirs(str(dir_path))
         return dir_path
 
+def _choose_server():
+    url3_4 = "https://esgf-data.dkrz.de/search/cmip6-dkrz/"
+    url3_3 = "https://esgf-index1.ceda.ac.uk/search/cmip6-ceda/"
+    url3_2 = "https://esgf-node.ipsl.upmc.fr/search/cmip6-ipsl/"
+
+    try:
+        if (requests.get(url3_2,timeout=10)):
+            _Curl = url3_2
+    except:
+        try:
+            if (requests.get(url3_3,timeout=10)):
+                _Curl = url3_3
+        except:
+            try:
+                if (requests.get(url3_4,timeout=10)):
+                    _Curl = url3_4
+            except:
+                print("\nAll servers down!!\nCheck back later.")
+    return _Curl
+
+def _choose_server2():
+    url4_4 = "https://esgf-node.ipsl.upmc.fr/esg-search/wget?project=CMIP6"
+    url4_2 = "https://esgf-index1.ceda.ac.uk/esg-search/wget?project=CMIP6"
+    url4_3 = "https://esgf-data.dkrz.de/esg-search/wget?project=CMIP6"
+
+    try:
+        if (requests.get(url4_2,timeout=10)):
+            _Durl = url4_2
+    except:
+        try:
+            if (requests.get(url4_3,timeout=10)):
+                _Durl = url4_3
+        except:
+            try:
+                if (requests.get(url4_4,timeout=10)):
+                    _Durl = url4_4
+            except:
+                print("\nAll servers down!!\nCheck back later.")
+    return _Durl
+
+
 class _Construct_urls(object):
     
     _limit = 10000
     
-    url4_1 = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
-    url4_2 = "https://esgf-node.ipsl.upmc.fr/esg-search/wget?project=CMIP6"
-    url4_3 = "https://esgf-index1.ceda.ac.uk/esg-search/wget?project=CMIP6"
-    url4_4 = "https://esgf-data.dkrz.de/esg-search/wget?project=CMIP6"
-    try:
-        if (requests.get(url4_1,timeout=10)):
-            _Durl = url4_1
-    except:
-        try:
-            if (requests.get(url4_2,timeout=10)):
-                _Durl = url4_2
-        except:
-            try:
-                if (requests.get(url4_3,timeout=10)):
-                    _Durl = url4_3
-            except:
-                try:
-                    if (requests.get(url4_4,timeout=10)):
-                        _Durl = url4_4
-                except:
-                    print("\nAll servers down!!\nCheck back later.")    
+    if requests.get("https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"):
+        _Durl = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
+    else:
+        _Durl = _choose_server2()
     
     def __init__(self,var,mod,realm,exp,freq):
          self.var = var
