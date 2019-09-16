@@ -32,7 +32,7 @@ def dlControl(count, blockSize, totalSize):
 
 def dl_cmip6(durl, dir_path):
         
-        if (not os.path.exists(str(dir_path)+durl.split('/')[len(durl.split('/'))-1])):
+        if (not os.path.exists(dir_path / durl.split('/')[len(durl.split('/'))-1])):
             print("\n\n"+durl.split('/')[len(durl.split('/'))-1]+" is available!\n")
             urllib.request.urlretrieve(durl,durl.split('/')[len(durl.split('/'))-1],reporthook=dlControl)
         else:
@@ -101,6 +101,7 @@ def DownloadCmip6(**kwargs):
             print('\nDid you mean any of the above?')
             print(ee)
     
+    print("\nFinding the fastest server . . .")
     links = search.get_links()
     
     if (links == []):

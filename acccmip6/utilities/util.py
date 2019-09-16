@@ -116,11 +116,7 @@ def _choose_server2():
 class _Construct_urls(object):
     
     _limit = 10000
-    
-    if requests.get("https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"):
-        _Durl = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
-    else:
-        _Durl = _choose_server2()
+    _Durl = "https://esgf-node.llnl.gov/esg-sear"
     
     def __init__(self,var,mod,realm,exp,freq):
          self.var = var
@@ -165,13 +161,24 @@ class _Construct_urls(object):
         cls._limit = limit
         return cls._limit
     
+    @classmethod
+    def _set_Durl(cls, _Durl):
+        cls._Durl = _Durl
+        return cls._Durl
+    
     def _get_wget(self):
         url = self._get_url()
-        r = requests.get(url)
-        if (r.status_code == 200):
+        if(requests.get(url, timeout = 10)):
             p = Path('.')
             dir_path = p.absolute() / 'wget_script.sh'
             urllib.request.urlretrieve(url, str(dir_path))
+        else:
+            _Construct_urls._set_Durl(_choose_server2())
+            url = self._get_url()
+            p = Path('.')
+            dir_path = p.absolute() / 'wget_script.sh'
+            urllib.request.urlretrieve(url, str(dir_path))
+
         with open(str(dir_path)) as f:
             urls = f.read()
             links = re.findall('http://.*.nc',urls)
