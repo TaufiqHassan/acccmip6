@@ -116,7 +116,7 @@ def _choose_server2():
 class _Construct_urls(object):
     
     _limit = 10000
-    _Durl = "https://esgf-node.llnl.gov/esg-sear"
+    _Durl = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
     
     def __init__(self,var,mod,realm,exp,freq):
          self.var = var
@@ -173,7 +173,7 @@ class _Construct_urls(object):
             dir_path = p.absolute() / 'wget_script.sh'
             urllib.request.urlretrieve(url, str(dir_path))
         else:
-            _Construct_urls._set_Durl(_choose_server2())
+            self._Durl = _Construct_urls._set_Durl(_choose_server2())
             url = self._get_url()
             p = Path('.')
             dir_path = p.absolute() / 'wget_script.sh'
