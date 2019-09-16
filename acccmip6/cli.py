@@ -4,6 +4,7 @@ from acccmip6.access_cm import SearchCmip6
 from acccmip6.download_dat import DownloadCmip6
 
 def main():
+    print("\nConnecting to the servers . . .")
     parser = argparse.ArgumentParser()
     
     parser.add_argument("-dir", help="Download directory.", default=None)

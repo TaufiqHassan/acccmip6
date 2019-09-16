@@ -30,6 +30,9 @@ setup(
     author_email='taufiq.hassanmozumder@email.ucr.edu',
     url='https://github.com/TaufiqHassan/acccmip6',
     packages=find_packages(exclude=['docs', 'tests']),
+    package_data = {
+            'utilities':['data/*.xlsx'],
+            },
     entry_points={
         'console_scripts':[
             'acccmip6=acccmip6.cli:main',

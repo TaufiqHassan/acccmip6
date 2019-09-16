@@ -1,6 +1,7 @@
 include AUTHORS.rst
 include LICENSE
 include README.rst
+include acccmip6/utilities/data/* 
 
 recursive-include tests *
 recursive-exclude * __pycache__

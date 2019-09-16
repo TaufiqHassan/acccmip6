@@ -4,12 +4,8 @@ Created on Thu Sep  5 21:05:20 2019
 
 @author: Taufiq
 """
-try:
-    import urllib.request as urlrequest
-except:
-    import urllib as urlrequest
+import urllib.request
 import os, sys
-import re
 import time
 from pathlib import Path
 
@@ -23,13 +19,13 @@ def dlControl(count, blockSize, totalSize):
     dLoaded = count*blockSize
     passedTime = time.time() - startTime
     tRate = convertBToMb(dLoaded) / passedTime
-    tRate *= 60
+    csize = int(convertBToMb(dLoaded))
+    tsize = int(convertBToMb(totalSize))
 
-    percent = int(dLoaded*100/totalSize)
-    sys.stdout.write("\r" + "progress" + "...%d%%" % percent)
+    sys.stdout.write("\r" + "Downloading"+"...%d/%dMb with a transfer rate of %.2f Mbps" % (csize, tsize, tRate))
     sys.stdout.flush()
 
-    if (tRate < 5) and (passedTime > 600):
+    if (tRate < 0.08) and (passedTime > 600):
         print ("\ndownload too slow! retrying...")
         time.sleep(2)
         raise TooSlowException
@@ -37,8 +33,8 @@ def dlControl(count, blockSize, totalSize):
 def dl_cmip6(durl, dir_path):
         
         if (not os.path.exists(str(dir_path)+durl.split('/')[len(durl.split('/'))-1])):
-            print("\n\n"+durl.split('/')[len(durl.split('/'))-1]+" is available!\n\nDownloading file . . .\n")
-            urlrequest.urlretrieve(durl,durl.split('/')[len(durl.split('/'))-1],reporthook=dlControl)
+            print("\n\n"+durl.split('/')[len(durl.split('/'))-1]+" is available!\n")
+            urllib.request.urlretrieve(durl,durl.split('/')[len(durl.split('/'))-1],reporthook=dlControl)
         else:
             print("\n"+durl.split('/')[len(durl.split('/'))-1]+" already exists!\n")         
     
@@ -108,11 +104,11 @@ def DownloadCmip6(**kwargs):
     links = search.get_links()
     
     if (links == []):
-        print('\nInvalid search! Check your selected options.')
-        print(color.UNDERLINE+'\nTIPS 1:'+color.END+' use the SearchDB module for live search in the CMIP6 database.'+color.END)
-        print(color.UNDERLINE+'\nTIPS 2:'+color.END+' use CMIP6DB module to look for currently avalable '
+        print('\n'+color.LRED+'<<Invalid search items!>>'+color.END)
+        print('\n'+color.UNDERLINE+color.BOLD+'TIPS 1:'+color.END+' Use the check (-c) argument to check your inputs.'+color.END)
+        print('\n'+color.UNDERLINE+color.BOLD+'TIPS 2:'+color.END+' Use CMIP6DB module to look for currently available '
               'models/experiments/variables and so on . . .')
-        raise Exception('No files were found that matched the query ')
+        raise SystemExit
     
     if (path == None):
         dir_path = _dir_path()._make_dir()
@@ -137,7 +133,7 @@ def DownloadCmip6(**kwargs):
             m=m+1
             startTime = time.time()
         except KeyboardInterrupt:
-            print("Interrupted! Removing file . . .\n")
+            print("\nInterrupted! Removing file . . .\n")
             os.remove(url.split('/')[len(url.split('/'))-1])
             break
         except:
