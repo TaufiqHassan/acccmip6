@@ -10,7 +10,7 @@ import os, sys
 import time
 from pathlib import Path
 
-from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb
+from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb, _realizations
 from acccmip6.utilities.c6db import SearchDB
 
 
@@ -54,6 +54,7 @@ def DownloadCmip6(**kwargs):
     _freq = kwargs.get('frequency', None)
     _realm = kwargs.get('realm', None)
     _check = kwargs.get('check', None)
+    rlzn = kwargs.get('rlzn', None)
     path = kwargs.get('path', None)
     
     search=SearchDB()
@@ -116,6 +117,18 @@ def DownloadCmip6(**kwargs):
         print('\n'+color.UNDERLINE+color.BOLD+'TIPS 2:'+color.END+' Use CMIP6DB module to look for currently available '
               'models/experiments/variables and so on . . .')
         raise SystemExit
+        
+    if (rlzn != None):
+        all_rlzn = _realizations(links)._all_realizations()
+        if rlzn in str(all_rlzn):
+            new_links=[]
+            for url in links:
+                if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])) or (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
+                    new_links.append(url)
+            links = new_links
+        else:
+            print(color.LRED+"\nSelected realzation is not available!"+color.END)
+            raise SystemExit
     
     if (path == None):
         dir_path = _dir_path()._make_dir()
