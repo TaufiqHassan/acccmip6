@@ -59,7 +59,7 @@ Optional Arguments
 Demo
 ____
 
-.. image:: https://github.com/TaufiqHassan/acccmip6/docs/demo.gif
+.. image:: ../images/demo.gif
 
 License
 -------
