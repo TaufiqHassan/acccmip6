@@ -17,6 +17,7 @@ def SearchCmip6(**kwargs):
         _realm = kwargs.get('realm', None)
         _check = kwargs.get('check', None)
         _desc = kwargs.get('desc', None)
+    
 
         search=SearchDB()
         if (_check == 'Yes') or (_check == 'yes'):
@@ -77,6 +78,7 @@ def SearchCmip6(**kwargs):
         print(color.LGREEN+"\nCurrently available variables based on your search: \n\n"+color.END,info.var)
         print(color.LGREEN+"\nCurrently available experiments based on your search: \n\n"+color.END,info.exp,"\n\n")
         print(color.LGREEN+"\nNumber of files:"+color.END, info.n_files,"\n\n")
+        print(color.LGREEN+"\nAvailable realizations:"+color.END, info.rlzn,"\n\n")
         if (_desc != None):
             print(color.YELLOW+"< < < Here are the experiment descriptions > > >\033[0m")
             for item in info.exp:

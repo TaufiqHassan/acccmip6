@@ -166,11 +166,12 @@ class _Construct_urls(object):
     
     def _get_wget(self):
         url = self._get_url()
-        if(requests.get(url, timeout = 10)):
+        try:
+            requests.get(url, timeout = 10)
             p = Path('.')
             dir_path = p.absolute() / 'wget_script.sh'
             urllib.request.urlretrieve(url, str(dir_path))
-        else:
+        except:
             self._Durl = _Construct_urls._set_Durl(_choose_server2())
             url = self._get_url()
             p = Path('.')
@@ -184,19 +185,42 @@ class _Construct_urls(object):
         os.remove(str(dir_path))
         return links
 
+class _realizations(object):  
+
+    def __init__(self,links):
+         self.links = links
+    
+    def _all_realizations(self):
+                
+        er=[0]*len(self.links)
+        for i in range(len(self.links)):
+            try:
+                er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0:2])
+            except:
+                er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0])
+      
+        ser=set(er)
+        if 0 in ser:
+            ser.remove(0)
+        rlzn = list(ser)
+        
+        return rlzn
+
 class _extract_info:
     
-    def __init__(self,var,mod,realm,exp,freq,n_files):
+    def __init__(self,var,mod,realm,exp,freq,n_files,rlzn):
          self.var = var
          self.mod = mod
          self.realm = realm
          self.exp = exp
          self.freq = freq
          self.n_files = n_files
+         self.rlzn = rlzn
     
     def _get_info(self):
          links = []
          links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget()
+         rlzn = _realizations(links)._all_realizations()
          n_files=len(links)
          _mod=set()
          _realm=set()
@@ -238,7 +262,7 @@ class _extract_info:
                      _var.add(data[0].split('/')[(len(data[0].split('/')))-1])
                      _freq.add(data[0].split('/')[7])
             
-         return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq),n_files)
+         return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq),n_files,rlzn)
    
 class TooSlowException(Exception):
     pass

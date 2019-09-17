@@ -107,7 +107,7 @@ def DownloadCmip6(**kwargs):
             print('\nDid you mean any of the above?')
             print(ee)
     
-    print("\nFinding the server . . .")
+    print("\nFinding server . . .")
     links = search.get_links()
     
     if (links == []):
