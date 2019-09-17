@@ -14,6 +14,7 @@ requirements = [
     'pandas',
     'requests',
     'setuptools',
+    'xlrd',
 ]
 
 test_requirements = [
