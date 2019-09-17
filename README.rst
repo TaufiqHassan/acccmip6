@@ -59,7 +59,7 @@ Optional Arguments
 Demo
 ____
 
-.. image:: ../images/demo.gif
+.. image:: docs/demo.gif
 
 License
 -------
