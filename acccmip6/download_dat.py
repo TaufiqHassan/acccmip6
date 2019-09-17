@@ -4,6 +4,7 @@ Created on Thu Sep  5 21:05:20 2019
 
 @author: Taufiq
 """
+from __future__ import unicode_literals
 import urllib.request
 import os, sys
 import time
@@ -22,7 +23,12 @@ def dlControl(count, blockSize, totalSize):
     csize = int(convertBToMb(dLoaded))
     tsize = int(convertBToMb(totalSize))
 
-    sys.stdout.write("\r" + "Downloading"+"...%d/%dMb with a transfer rate of %.2f Mbps" % (csize, tsize, tRate))
+    barLength = 40
+    progress = float(csize) / float(tsize)
+    percent = (csize/tsize)*100
+    block = int(round(barLength * progress))
+    text2="\r%s %i%% |%s%s| %i/%iMB %.2f MB/s\r" % ("Downloading ", percent, "█"*block, "░"*(barLength-block), csize, tsize, tRate)
+    sys.stdout.write(text2)
     sys.stdout.flush()
 
     if (tRate < 0.08) and (passedTime > 600):
@@ -101,7 +107,7 @@ def DownloadCmip6(**kwargs):
             print('\nDid you mean any of the above?')
             print(ee)
     
-    print("\nFinding the fastest server . . .")
+    print("\nFinding the server . . .")
     links = search.get_links()
     
     if (links == []):
