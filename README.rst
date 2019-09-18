@@ -57,9 +57,15 @@ Optional Arguments
 - ``-dir`` : Download directory
 
 Demo
-____
+-----
+
+Search CMIP6 database with ``acccmip6 -o S```
 
 .. image:: docs/demo.gif
+
+Download CMIP6 data with ``acccmip6 -o D``
+
+.. image:: docs/demi2.gif
 
 License
 -------

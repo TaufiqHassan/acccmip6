@@ -123,8 +123,12 @@ def DownloadCmip6(**kwargs):
         if rlzn in str(all_rlzn):
             new_links=[]
             for url in links:
-                if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])) or (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
-                    new_links.append(url)
+                try:
+                    if (int(rlzn) == int(url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])):
+                        new_links.append(url)
+                except:
+                    if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
+                        new_links.append(url)
             links = new_links
         else:
             print(color.LRED+"\nSelected realzation is not available!"+color.END)
