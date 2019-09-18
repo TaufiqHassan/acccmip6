@@ -59,7 +59,7 @@ Optional Arguments
 Demo
 -----
 
-Search CMIP6 database with ``acccmip6 -o S```
+Search CMIP6 database with ``acccmip6 -o S``
 
 .. image:: docs/demo.gif
 
