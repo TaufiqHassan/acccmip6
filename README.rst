@@ -40,7 +40,7 @@ Requires python v3.5 or up and pip. Mac users can use ``brew install python3`` a
 
 Installation demo
 
-.. image:: docs/install_demo.gif
+.. image:: docs/installation_demo.gif
 
 
 Usage
@@ -72,7 +72,7 @@ Demo
 
 Search CMIP6 database with ``acccmip6 -o S``
 
-.. image:: docs/search_demo.gif
+.. image:: docs/searching_demo.gif
 
 Download CMIP6 data with ``acccmip6 -o D``
 
