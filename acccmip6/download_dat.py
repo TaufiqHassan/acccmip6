@@ -31,7 +31,7 @@ def dlControl(count, blockSize, totalSize):
     sys.stdout.write(text2)
     sys.stdout.flush()
 
-    if (tRate < 0.08) and (passedTime > 600):
+    if (tRate < 0.08) and (passedTime > 60):
         print ("\ndownload too slow! retrying...")
         time.sleep(2)
         raise TooSlowException

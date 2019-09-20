@@ -196,6 +196,11 @@ class _realizations(object):
         for i in range(len(self.links)):
             try:
                 er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0:2])
+            except IndexError:
+                try:
+                    er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('-r')[1][0:2])
+                except:
+                    er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('-r')[1][0])
             except:
                 er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0])
       

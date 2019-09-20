@@ -76,7 +76,7 @@ Search CMIP6 database with ``acccmip6 -o S``
 
 Download CMIP6 data with ``acccmip6 -o D``
 
-.. image:: docs/download_demo.gif
+.. image:: docs/downloading_demo.gif
 
 License
 -------

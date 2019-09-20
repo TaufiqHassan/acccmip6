@@ -7,7 +7,7 @@ test_accmip6
 
 Tests for `accmip6` module.
 """
-
+import pytest
 from pathlib import Path
 
 from acccmip6.utilities.c6db import SearchDB
