@@ -8,7 +8,7 @@ def main():
     parser = argparse.ArgumentParser()
     
     parser.add_argument("-dir", help="Download directory.", default=None)
-    parser.add_argument("-o","--output-options", help="S for 'Searching' or D for 'Downloading'.", required=True)
+    parser.add_argument("-o","--output-options", help="S for 'Searching' or D for 'Downloading'. Use M to initiate the CMIP6DB module.", required=True)
     parser.add_argument("-m", help="Model names", default=None)
     parser.add_argument("-e", help="Experiment names", default=None)
     parser.add_argument("-v", help="Variable names", default=None)
@@ -33,4 +33,6 @@ def main():
         SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc)
     elif (out == 'D'):
         DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn)
-
+    elif (out == 'M'):
+        SearchCmip6(module='on', model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm)
+        

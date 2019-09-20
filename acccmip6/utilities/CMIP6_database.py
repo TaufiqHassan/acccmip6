@@ -104,30 +104,38 @@ class CMIP6DB:
         try:
             with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
                 self._avail = len(re.findall('id="checkbox_frequency_',self._fdata))
+                print("\nCurrently ", self._avail," frequencies has outputs!\n")
                 for zz in range(self._avail):
                     self._holder.append(self._fdata.split('checkbox_frequency_')[zz+2].split('" name="')[0])
+                print("Available frequencies: \n\n")
                 return self._holder
         except:
             self._Curl=_choose_server()
             with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
                 self._avail = len(re.findall('id="checkbox_frequency_',self._fdata))
+                print("\nCurrently ", self._avail," frequencies has outputs!\n")
                 for zz in range(self._avail):
                     self._holder.append(self._fdata.split('checkbox_frequency_')[zz+2].split('" name="')[0])
+                print("Available frequencies: \n\n")
                 return self._holder
         
     def available_realmns(self):
         try:
             with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
                 self._avail = len(re.findall('id="checkbox_realm_',self._fdata))
+                print("\nCurrently ", self._avail," realms has outputs!\n")
                 for zz in range(self._avail):
                     self._holder.append(self._fdata.split('checkbox_realm_')[zz+2].split('" name="')[0])
+                print("Available realms: \n\n")
                 return self._holder
         except:
             self._Curl=_choose_server()
             with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
                 self._avail = len(re.findall('id="checkbox_realm_',self._fdata))
+                print("\nCurrently ", self._avail," realms has outputs!\n")
                 for zz in range(self._avail):
                     self._holder.append(self._fdata.split('checkbox_realm_')[zz+2].split('" name="')[0])
+                print("Available frequencies: \n\n")
                 return self._holder
     
     @staticmethod

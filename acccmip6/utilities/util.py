@@ -277,3 +277,8 @@ def convertBToMb(bytes):
     bytes = float(bytes)
     megabytes = bytes / 1048576
     return megabytes
+
+def _mod_help():
+    print("\n"+color.PURPLE+"                <<You are using the CMIP6DB module now>>"+color.END)
+    print("\nUse 'show' as the -m/-e/-f/-v/-r argument option instead of the names\n")
+    print(color.BOLD+color.UNDERLINE+"Example:"+color.END+" acccmip -o M -m show >>> will generate a list of all currently available models in the CMIP6 database.")

@@ -7,7 +7,7 @@ Created on Thu Sep  5 01:58:23 2019
 
 from acccmip6.utilities.c6db import SearchDB
 from acccmip6.utilities.CMIP6_database import CMIP6DB
-from acccmip6.utilities.util import color
+from acccmip6.utilities.util import color, _mod_help
 
 def SearchCmip6(**kwargs):
         _var = kwargs.get('variable', None)
@@ -17,6 +17,26 @@ def SearchCmip6(**kwargs):
         _realm = kwargs.get('realm', None)
         _check = kwargs.get('check', None)
         _desc = kwargs.get('desc', None)
+        module = kwargs.get('module', None)
+        
+        if (module == 'on'):
+            _mod_help()
+            if (_var == 'show') or (_var == 'Show'):
+                ModDB = CMIP6DB()
+                print(ModDB.CMIP6_variables())
+            if (_mod == 'show') or (_mod == 'Show'):
+                ModDB = CMIP6DB()
+                print(ModDB.available_models())
+            if (_exp == 'show') or (_exp == 'Show'):
+                ModDB = CMIP6DB()
+                print(ModDB.available_experiments())
+            if (_freq == 'show') or (_freq == 'Show'):
+                ModDB = CMIP6DB()
+                print(ModDB.available_frequencies())
+            if (_realm == 'show') or (_realm == 'Show'):
+                ModDB = CMIP6DB()
+                print(ModDB.available_realmns())
+            raise SystemExit
     
 
         search=SearchDB()
