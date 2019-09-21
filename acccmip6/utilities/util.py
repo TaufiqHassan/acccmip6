@@ -278,6 +278,16 @@ def convertBToMb(bytes):
     megabytes = bytes / 1048576
     return megabytes
 
+def _check_list(item):
+    try:
+        if (type(item.replace("'",'').strip('[]').split(','))==list):
+            lm = str(item).replace("'",'').strip('[]').split(',')
+            lm_nospace = [x.strip() for x in lm]
+            item = str(lm_nospace).replace("'",'').strip('[]')
+    except:
+        pass
+    return item
+
 def _mod_help():
     print("\n"+color.PURPLE+"                <<You are using the CMIP6DB module now>>"+color.END)
     print("\nUse 'show' as the -m/-e/-f/-v/-r argument option instead of the names\n")

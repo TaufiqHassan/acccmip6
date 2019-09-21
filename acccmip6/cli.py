@@ -2,6 +2,7 @@ import argparse
 
 from acccmip6.access_cm import SearchCmip6
 from acccmip6.download_dat import DownloadCmip6
+from acccmip6.utilities.util import _check_list
 
 def main():
 
@@ -19,16 +20,17 @@ def main():
     parser.add_argument("-desc", help="Description: yes to print out experiment description", default=None)
 	
     args = parser.parse_args()
-    model = args.m
-    experiment = args.e
-    variable = args.v
-    frequency = args.f
-    realm = args.r
+    model = _check_list(args.m)
+    experiment = _check_list(args.e)
+    variable = _check_list(args.v)
+    frequency = _check_list(args.f)
+    realm = _check_list(args.r)
     check = args.c
     rlzn = args.rlzn
     desc = args.desc
     out = args.output_options
     dl_dir = args.dir
+    
     if (out == 'S'):
         SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc)
     elif (out == 'D'):
