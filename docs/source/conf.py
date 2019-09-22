@@ -21,6 +21,9 @@ project = 'acccmip6'
 copyright = '2019, Taufiq Hassan'
 author = 'Taufiq Hassan'
 
+# -- Master file ---
+master_doc = 'index'
+
 # The full version, including alpha/beta/rc tags
 release = '2.0.3'
 
