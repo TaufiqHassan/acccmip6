@@ -1,4 +1,4 @@
-quickstart guide
+Quickstart guide
 ================
 
 A basic user guide for minimal usage.
