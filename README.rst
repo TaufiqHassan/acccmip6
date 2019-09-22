@@ -13,7 +13,7 @@ Access Cmip6
 ``acccmip6`` package can access CMIP6 database in real-time.
 
 * GitHub repo: https://github.com/TaufiqHassan/acccmip6
-* Documentation [Coming Soon] : https://acccmip6.readthedocs.org.
+* Documentation: https://acccmip6.readthedocs.org.
 
 Features
 --------

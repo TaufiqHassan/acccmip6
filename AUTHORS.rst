@@ -1,13 +1,8 @@
-=======
-Credits
-=======
 
-Maintainer
-----------
+**Maintainer**
 
 * Taufiq Hassan Mozumder <taufiq.hassanmozumder@email.ucr.edu>
 
-Contributors
-------------
+**Contributors**
 
 None yet.

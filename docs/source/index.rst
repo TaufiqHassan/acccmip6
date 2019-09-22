@@ -42,6 +42,7 @@ User guide
    guide/search
    guide/module_search
    guide/download
+   guide/authors.rst
    guide/license
 
 
