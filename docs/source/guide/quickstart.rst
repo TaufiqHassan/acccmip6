@@ -31,7 +31,29 @@ All usable arguments and their explanations -
 
 Example usage ::
 
-        acccmip6 -o S -m MIROC6 -e ssp245 -v zg -f mon -r atmos
+        $ acccmip6 -o S -m MIROC6 -e ssp245 -v zg -f mon -r atmos
+
+Output ::
+
+          TIPS: Use the check (-c) argument to check your inputs.
+
+
+          Currently available models based on your search:
+
+          ['MIROC6']
+
+          Currently available variables based on your search:
+
+          ['zg']
+
+          Currently available experiments based on your search:
+
+          ['ssp245']
+
+          Number of files: 27
+
+          Available realizations: [1, 2, 3]
+
 
 
  
