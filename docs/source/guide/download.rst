@@ -15,7 +15,7 @@ Use these optional arguments with in addition to **Optional arguments 1** and **
 
 **General usage** ::
 
-        acccmip6 -o S -e hist-piNTCF -v vas -m MIROC6
+        acccmip6 -o D -e hist-piNTCF -v vas -m MIROC6
 
 **General output** ::
 
