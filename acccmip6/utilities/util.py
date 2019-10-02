@@ -225,7 +225,7 @@ class _extract_info:
     
     def _get_info(self):
          links = []
-         links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget()
+         links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget(0)
          rlzn = _realizations(links)._all_realizations()
          n_files=len(links)
          _mod=set()
@@ -309,6 +309,15 @@ def _get_rlzn_links(rlzn,all_rlzn,links):
     else:
         print(color.LRED+"\nSelected realzation is not available!"+color.END)
         raise SystemExit
+
+def _get_skipped_links(links,val):
+    skipped_items = [x.strip() for x in val.split(',')]
+    new_links=[]
+    for url in links:
+        for item in skipped_items:
+            if str(item) in url:
+                new_links.append(url)
+    return list(set(links)-set(new_links))
         
 def _manual_wget(passed_urls,unused_links):
     def uncommon_elements(list1, list2):

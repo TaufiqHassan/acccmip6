@@ -10,7 +10,8 @@ import os, sys
 import time
 from pathlib import Path
 
-from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb, _realizations, _get_rlzn_links, _manual_wget, HidePrint
+from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb, _realizations
+from acccmip6.utilities.util import _get_rlzn_links, _manual_wget, HidePrint, _get_skipped_links
 from acccmip6.utilities.c6db import SearchDB
 
 
@@ -56,6 +57,7 @@ def DownloadCmip6(**kwargs):
     _check = kwargs.get('check', None)
     rlzn = kwargs.get('rlzn', None)
     path = kwargs.get('path', None)
+    skip = kwargs.get('skip', None)
     
     search=SearchDB()
     if (_check == 'Yes') or (_check == 'yes'):
@@ -117,6 +119,9 @@ def DownloadCmip6(**kwargs):
         print('\n'+color.UNDERLINE+color.BOLD+'TIPS 2:'+color.END+' Use CMIP6DB module to look for currently available '
               'models/experiments/variables and so on . . .')
         raise SystemExit
+    
+    if (skip!=None):
+        links=_get_skipped_links(links,skip)
         
     if (rlzn != None):
         all_rlzn = _realizations(links)._all_realizations()

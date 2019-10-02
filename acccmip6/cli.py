@@ -18,6 +18,7 @@ def main():
     parser.add_argument("-rlzn", help="Select realization", default=None)
     parser.add_argument("-c", help="Checker: yes to check inputs", default=None)
     parser.add_argument("-desc", help="Description: yes to print out experiment description", default=None)
+    parser.add_argument("-skip", help="Skip any item in your download", default=None)
 	
     args = parser.parse_args()
     model = _check_list(args.m)
@@ -30,11 +31,12 @@ def main():
     desc = args.desc
     out = args.output_options
     dl_dir = args.dir
+    skipped = args.skip
     
     if (out == 'S'):
         SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc)
     elif (out == 'D'):
-        DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn)
+        DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, skip=skipped)
     elif (out == 'M'):
         SearchCmip6(module='on', model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm)
         
