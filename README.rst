@@ -8,6 +8,8 @@ Access Cmip6
 .. image:: https://img.shields.io/pypi/v/acccmip6.svg
         :target: https://pypi.python.org/pypi/acccmip6
 
+.. image:: https://readthedocs.org/projects/acccmip6/badge
+        :target: https://acccmip6.readthedocs.org
 
 
 ``acccmip6`` package can access CMIP6 database in real-time.

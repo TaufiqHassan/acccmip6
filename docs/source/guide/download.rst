@@ -13,6 +13,8 @@ Use these optional arguments with in addition to **Optional arguments 1** and **
 - ``-dir`` : select directory. If kept blank, ``acccmip6`` will ask for a directory. With no inputs, download will continue in CMIP6 directory.
 - ``-rlzn`` : select realization
 
+- ``-skip`` : skip items during download
+
 **General usage** ::
 
         acccmip6 -o D -e hist-piNTCF -v vas -m MIROC6
@@ -91,3 +93,7 @@ Use these optional arguments with in addition to **Optional arguments 1** and **
         vas_Amon_MIROC6_hist-piNTCF_r2i1p1f1_gn_185001-194912.nc is available!
 
         Downloading  33% |█████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░| 40/120MB 26.54 MB/s
+
+**skipping items:** skip any item (models/experiments/variables) you don't want to download ::
+
+        acccmip6 -o D -e ssp245-aer,ssp245,hist-aer -MIROC6,CanESM5 -f mon -r atmos -skip hist-aer,ua,va,zg
