@@ -164,7 +164,7 @@ class _Construct_urls(object):
         cls._Durl = _Durl
         return cls._Durl
     
-    def _get_wget(self):
+    def _get_wget(self, keep):
         url = self._get_url()
         try:
             requests.get(url, timeout = 10)
@@ -182,7 +182,8 @@ class _Construct_urls(object):
             urls = f.read()
             links = re.findall('http://.*.nc',urls)
             f.close()
-        os.remove(str(dir_path))
+        if (keep==0):
+            os.remove(str(dir_path))
         return links
 
 class _realizations(object):  
@@ -292,3 +293,42 @@ def _mod_help():
     print("\n"+color.PURPLE+"                <<You are using the CMIP6DB module now>>"+color.END)
     print("\nUse 'show' as the -m/-e/-f/-v/-r argument option instead of the names\n")
     print(color.BOLD+color.UNDERLINE+"Example:"+color.END+" acccmip -o M -m show >>> will generate a list of all currently available models in the CMIP6 database.")
+    
+def _get_rlzn_links(rlzn,all_rlzn,links):    
+    new_links=[]
+    if rlzn in str(all_rlzn):
+        new_links=[]
+        for url in links:
+            try:
+                if (int(rlzn) == int(url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])):
+                    new_links.append(url)
+            except:
+                if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
+                    new_links.append(url)
+        return new_links
+    else:
+        print(color.LRED+"\nSelected realzation is not available!"+color.END)
+        raise SystemExit
+        
+def _manual_wget(passed_urls,unused_links):
+    def uncommon_elements(list1, list2):
+        return [element for element in list1 if element not in list2]
+    
+    urls=passed_urls+unused_links
+    l=[]
+    with open("wget_script.sh") as f:
+        for line in f:
+            l.append(line.strip())
+    s=[]
+    for item in l:
+        for url in urls:
+            if url in item:
+                s.append(item)  
+    a = uncommon_elements(l,s)   
+    with open('out.sh','w') as out:
+        for item in a:
+            out.write(item+"\n")
+    f.close()
+    out.close()
+    os.remove('wget_script.sh')
+    os.rename('out.sh', 'wget_script.sh')

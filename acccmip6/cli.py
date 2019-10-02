@@ -26,7 +26,7 @@ def main():
     frequency = _check_list(args.f)
     realm = _check_list(args.r)
     check = args.c
-    rlzn = args.rlzn
+    rlzn = _check_list(args.rlzn)
     desc = args.desc
     out = args.output_options
     dl_dir = args.dir

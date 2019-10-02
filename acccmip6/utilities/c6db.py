@@ -100,10 +100,25 @@ class SearchDB(object):
             else:
                 self._freq.append(freqs[zz])
         self._freq.remove(0)
+        
+    @property
+    def realization(self):
+        return self.rlzn
+
+    @realization.setter
+    def realization(self, val):
+        self.rlzn = [0]
+        rlzns = [x.strip() for x in val.split(',')]
+        for zz in range(len(rlzns)):
+            self.rlzn.append(rlzns[zz])
+        self.rlzn.remove(0)
     
     
-    def get_links(self):
-        links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq)._get_wget()
+    def get_links(self, manual):
+        if manual==0:
+            links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq)._get_wget(0)
+        else:
+            links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq)._get_wget(1)
         return links
     
     def get_info(self):

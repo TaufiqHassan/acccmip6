@@ -10,7 +10,7 @@ import os, sys
 import time
 from pathlib import Path
 
-from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb, _realizations
+from acccmip6.utilities.util import color, _dir_path, TooSlowException, convertBToMb, _realizations, _get_rlzn_links, _manual_wget, HidePrint
 from acccmip6.utilities.c6db import SearchDB
 
 
@@ -109,7 +109,7 @@ def DownloadCmip6(**kwargs):
             print(ee)
     
     print("\nFinding server . . .")
-    links = search.get_links()
+    links = search.get_links(0)
     
     if (links == []):
         print('\n'+color.LRED+'<<Invalid search items!>>'+color.END)
@@ -120,19 +120,9 @@ def DownloadCmip6(**kwargs):
         
     if (rlzn != None):
         all_rlzn = _realizations(links)._all_realizations()
-        if rlzn in str(all_rlzn):
-            new_links=[]
-            for url in links:
-                try:
-                    if (int(rlzn) == int(url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])):
-                        new_links.append(url)
-                except:
-                    if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
-                        new_links.append(url)
-            links = new_links
-        else:
-            print(color.LRED+"\nSelected realzation is not available!"+color.END)
-            raise SystemExit
+        new_links = _get_rlzn_links(rlzn,all_rlzn,links)
+        unused_links=list(set(links)-set(new_links))
+        links=new_links
     
     if (path == None):
         dir_path = _dir_path()._make_dir()
@@ -145,12 +135,15 @@ def DownloadCmip6(**kwargs):
         
     os.chdir(dir_path) 
     n = 0
-    m = 0    
+    m = 0
+    manual = 0
+    passed_urls=[]    
     for url in links:
         startTime = time.time()
         try:
             dl_cmip6(url, dir_path)
             n=n+1
+            passed_urls.append(url)
         except TooSlowException:
             print("Removing file . . .\n")
             os.remove(url.split('/')[len(url.split('/'))-1])
@@ -160,6 +153,13 @@ def DownloadCmip6(**kwargs):
             print("\nInterrupted! Removing file . . .\n")
             os.remove(url.split('/')[len(url.split('/'))-1])
             break
+        except urllib.error.HTTPError:
+            m=m+1
+            manual=manual+1
+            print("\n"+color.RED+"<<401 Unauthorized: restricted access!!>>"+color.END+"\n")
+            print(color.UNDERLINE+"From ESGF:"+color.END+" Before you can download this data, you have to join a data access control group \nsince acknowledgement of a policy is a condition for this data download.")
+            print("\nRequires registration/manual download . . . :(")
+            pass
         except:
             m=m+1
             os.remove(url.split('/')[len(url.split('/'))-1])
@@ -168,3 +168,9 @@ def DownloadCmip6(**kwargs):
     print("\n\nDownloaded ",n," out of ",n+m," files.")
     if (m>0):
         print("\n\nRe-run the script for the missing files.")
+    if (manual>0):
+        print("\n\n",manual," files require an ESGF account/openID.")
+        print("\nwget script created for these files!\nUse it with your openid/password >> 'wget_script -H'")
+        with HidePrint():
+            search.get_links(1)
+        _manual_wget(passed_urls,unused_links)
