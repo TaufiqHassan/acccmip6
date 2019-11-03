@@ -23,7 +23,7 @@ def SearchCmip6(**kwargs):
             _mod_help()
             if (_var == 'show') or (_var == 'Show'):
                 ModDB = CMIP6DB()
-                print(ModDB.CMIP6_variables())
+                print(ModDB.var_stdName())
             if (_mod == 'show') or (_mod == 'Show'):
                 ModDB = CMIP6DB()
                 print(ModDB.available_models())

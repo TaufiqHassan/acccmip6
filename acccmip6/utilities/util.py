@@ -294,21 +294,29 @@ def _mod_help():
     print("\nUse 'show' as the -m/-e/-f/-v/-r argument option instead of the names\n")
     print(color.BOLD+color.UNDERLINE+"Example:"+color.END+" acccmip -o M -m show >>> will generate a list of all currently available models in the CMIP6 database.")
     
-def _get_rlzn_links(rlzn,all_rlzn,links):    
+def _get_rlzn_links(r,all_rlzn,links):    
     new_links=[]
-    if rlzn in str(all_rlzn):
-        new_links=[]
-        for url in links:
-            try:
-                if (int(rlzn) == int(url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])):
-                    new_links.append(url)
-            except:
-                if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
-                    new_links.append(url)
-        return new_links
-    else:
-        print(color.LRED+"\nSelected realzation is not available!"+color.END)
-        raise SystemExit
+    for rlzn in r:
+        if rlzn in str(all_rlzn):
+            for url in links:
+                try:
+                    try:
+                        if (int(rlzn) == int(url.split('/')[len(url.split('/'))-1].split('-r')[1][0:2])):
+                            new_links.append(url)
+                    except:
+                        if (rlzn == (url.split('/')[len(url.split('/'))-1].split('-r')[1][0])):
+                            new_links.append(url)
+                except:
+                    try:
+                        if (int(rlzn) == int(url.split('/')[len(url.split('/'))-1].split('_r')[1][0:2])):
+                            new_links.append(url)
+                    except:
+                        if (rlzn == (url.split('/')[len(url.split('/'))-1].split('_r')[1][0])):
+                            new_links.append(url)
+        else:
+            print(color.LRED+"\nSelected realzation is not available!"+color.END)
+            raise SystemExit
+    return new_links
 
 def _get_skipped_links(links,val):
     skipped_items = [x.strip() for x in val.split(',')]

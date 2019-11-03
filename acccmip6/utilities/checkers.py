@@ -67,7 +67,8 @@ class _checkers(object):
                 if self.val.upper() in s:
                     n=n+1
                     s = var_av[m_u.index(s)]
-                    print('\nOption ', n, s)
+                    LN = CMIP6DB()._get_longName(str(s))
+                    print('\nOption ', n, s,'(',LN,')')
             if (n==0):
                 raise ValueError()
             else:

@@ -137,6 +137,25 @@ class CMIP6DB:
                     self._holder.append(self._fdata.split('checkbox_realm_')[zz+2].split('" name="')[0])
                 print("Available frequencies: \n\n")
                 return self._holder
+            
+    def var_stdName(self):
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_cf_standard_name_',self._fdata))
+                print("\nCurrently ", self._avail," variables has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_cf_standard_name_')[zz+2].split('" name="')[0])
+                print("Available variables: \n\n")
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_cf_standard_name_',self._fdata))
+                print("\nCurrently ", self._avail," variables has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_cf_standard_name_')[zz+2].split('" name="')[0])
+                print("Available frequencies: \n\n")
+                return self._holder
     
     @staticmethod
     def _get_definition(exp):
@@ -150,4 +169,17 @@ class CMIP6DB:
             if (exp_name.values[zz]==exp):
                 definition=(exp_def.values[zz][0]).split('\n')[0].strip()
         return definition
+    
+    @staticmethod
+    def _get_longName(var):
+        resource_package = __name__
+        resource_path = '/'.join(('data', 'var_list.xlsx'))
+        tmp = pkg_resources.resource_stream(resource_package, resource_path)
+        did=pd.read_excel(tmp)
+        v=pd.DataFrame(did,columns=['variable'])
+        v_long=pd.DataFrame(did,columns=['Long_name'])
+        for zz in range(len(v.values)):
+            if (v.values[zz]==var):
+                longName=v_long.values[zz][0]
+        return longName
             
