@@ -10,6 +10,9 @@ Access Cmip6
 
 .. image:: https://readthedocs.org/projects/acccmip6/badge
         :target: https://acccmip6.readthedocs.org
+        
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3723878.svg
+   :target: https://doi.org/10.5281/zenodo.3723878
 
 
 ``acccmip6`` package can access CMIP6 database in real-time.
