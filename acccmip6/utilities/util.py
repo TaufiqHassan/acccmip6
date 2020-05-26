@@ -242,6 +242,18 @@ class _extract_info:
                      _exp.add(data[3])
                      _var.add(data[1].split('/')[(len(data[1].split('/')))-1])
                      _freq.add(data[1].split('/')[7])
+                 elif len(data[1].split('/'))==11:
+                     _mod.add(data[3])
+                     _realm.add(data[2])
+                     _exp.add(data[4])
+                     _var.add(data[1].split('/')[(len(data[1].split('/')))-1])
+                     _freq.add(data[1].split('/')[6])
+                 elif len(data[1].split('/'))==13:
+                     _mod.add(data[3])
+                     _realm.add(data[2])
+                     _exp.add(data[4])
+                     _var.add(data[1].split('/')[(len(data[1].split('/')))-1])
+                     _freq.add(data[1].split('/')[8])
                  else:
                      _mod.add(data[3])
                      _realm.add(data[2])
@@ -262,11 +274,36 @@ class _extract_info:
                      _var.add(data[1].split('/')[(len(data[1].split('/')))-1])
                      _freq.add(data[1].split('/')[7])
                  else:
-                     _mod.add(data[2])
-                     _realm.add(data[1])
-                     _exp.add(data[3])
-                     _var.add(data[0].split('/')[(len(data[0].split('/')))-1])
-                     _freq.add(data[0].split('/')[7])
+                     if len(data[0].split('/'))==17:
+                         _mod.add(data[2])
+                         _realm.add(data[1])
+                         _exp.add(data[3])
+                         _var.add(data[0].split('/')[(len(data[0].split('/')))-1])
+                         _freq.add(data[0].split('/')[12])
+                         if data[0].split('/')[12]=='r1i1p1f1':
+                             print(data)
+                     else:
+                         _mod.add(data[2])
+                         _realm.add(data[1])
+                         _exp.add(data[3])
+                         _var.add(data[0].split('/')[(len(data[0].split('/')))-1])
+                         _freq.add(data[0].split('/')[11])
+             else:
+                 try:
+                     if len(data[2].split('/'))==12:
+                         _mod.add(data[4])
+                         _realm.add(data[2].split('/')[6])
+                         _exp.add(data[5])
+                         _var.add(data[2].split('/')[(len(data[2].split('/')))-1])
+                         _freq.add(data[2].split('/')[7])
+                     else:
+                        _mod.add(data[4])
+                        _realm.add(data[2].split('/')[6])
+                        _exp.add(data[5])
+                        _var.add(data[2].split('/')[(len(data[2].split('/')))-1])
+                        _freq.add(data[2].split('/')[6])
+                 except:
+                    print("\nBugged info here! Please, report it to: mhass004@ucr.edu\nThank You!")
             
          return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq),n_files,rlzn)
    
