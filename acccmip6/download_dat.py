@@ -56,6 +56,7 @@ def DownloadCmip6(**kwargs):
     _realm = kwargs.get('realm', None)
     _check = kwargs.get('check', None)
     rlzn = kwargs.get('rlzn', None)
+    year = kwargs.get('year', None)
     path = kwargs.get('path', None)
     skip = kwargs.get('skip', None)
     
@@ -120,6 +121,13 @@ def DownloadCmip6(**kwargs):
               'models/experiments/variables and so on . . .')
         raise SystemExit
     
+    if (year!=None):
+        yr_link=[]
+        for link in links:
+            if year in link:
+                yr_link.append(link)
+        links = yr_link
+        
     if (skip!=None):
         links=_get_skipped_links(links,skip)
         

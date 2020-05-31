@@ -203,7 +203,11 @@ class _realizations(object):
                 except:
                     er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('-r')[1][0])
             except:
-                er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0])
+                try:
+                    er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0])
+                except ValueError:
+                    er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[2][0])
+
       
         ser=set(er)
         if 0 in ser:
@@ -214,7 +218,7 @@ class _realizations(object):
 
 class _extract_info:
     
-    def __init__(self,var,mod,realm,exp,freq,n_files,rlzn):
+    def __init__(self,var,mod,realm,exp,freq,n_files,rlzn,year,links):
          self.var = var
          self.mod = mod
          self.realm = realm
@@ -222,10 +226,14 @@ class _extract_info:
          self.freq = freq
          self.n_files = n_files
          self.rlzn = rlzn
+         self.year = year
+         self.links = links
     
     def _get_info(self):
-         links = []
-         links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget(0)
+         if self.links == None:
+             links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget(0)
+         else:
+             links = self.links
          rlzn = _realizations(links)._all_realizations()
          n_files=len(links)
          _mod=set()
@@ -233,8 +241,10 @@ class _extract_info:
          _exp=set()
          _var=set()
          _freq=set()
+         year=set()
          for link in links:
              data=link.split('_')
+             year.add(data[len(data)-1][:4])
              if (len(data)==8):
                  if (data[4] == 'NorESM2-LM'):
                      _mod.add(data[4])
@@ -304,8 +314,8 @@ class _extract_info:
                         _freq.add(data[2].split('/')[6])
                  except:
                     print("\nBugged info here! Please, report it to: mhass004@ucr.edu\nThank You!")
-            
-         return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq),n_files,rlzn)
+         year = sorted(list(year))
+         return _extract_info(list(_var),list(_mod),list(_realm),list(_exp),list(_freq),n_files,rlzn,year,links)
    
 class TooSlowException(Exception):
     pass

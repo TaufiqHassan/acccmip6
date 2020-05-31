@@ -17,6 +17,8 @@ def SearchCmip6(**kwargs):
         _realm = kwargs.get('realm', None)
         _check = kwargs.get('check', None)
         _desc = kwargs.get('desc', None)
+        _time = kwargs.get('time', None)
+        year = kwargs.get('year', None)
         module = kwargs.get('module', None)
         
         if (module == 'on'):
@@ -91,14 +93,37 @@ def SearchCmip6(**kwargs):
             except Exception as ee:
                 print('\nDid you mean any of the above?')
                 print(ee)
+                
+        if (year != None):
+            try:
+                search.year=year
+            except ValueError as ve:
+                print(color.LRED+"\n<<No options available.>>\n\nPlease make sure "+str(year)+" exists."+color.END)
+                print(ve)
+            except Exception as ee:
+                print('\nDid you mean any of the above?')
+                print(ee)
         
         info = search.get_info()
+
+        if (year!=None):
+            links = search.get_links(0)
+            yr_link=[]
+            for link in links:
+                if year in link:
+                    yr_link.append(link)
+            links = yr_link
+            search.links = links
+            info = search.get_info()
         
         print(color.LGREEN+"\n\n Currently available models based on your search: \n\n"+color.END,info.mod)
         print(color.LGREEN+"\nCurrently available variables based on your search: \n\n"+color.END,info.var)
         print(color.LGREEN+"\nCurrently available experiments based on your search: \n\n"+color.END,info.exp,"\n\n")
         print(color.LGREEN+"\nNumber of files:"+color.END, info.n_files,"\n\n")
         print(color.LGREEN+"\nAvailable realizations:"+color.END, info.rlzn,"\n\n")
+        if (_time != None):
+            print(color.YELLOW+"< < < Data available for these time periods > > >\033[0m \n")
+            print(info.year)
         if (_desc != None):
             print(color.YELLOW+"< < < Here are the experiment descriptions > > >\033[0m")
             for item in info.exp:
