@@ -107,12 +107,19 @@ def SearchCmip6(**kwargs):
         info = search.get_info()
 
         if (year!=None):
-            links = search.get_links(0)
-            yr_link=[]
-            for link in links:
-                if year in link:
-                    yr_link.append(link)
-            links = yr_link
+            all_links = search.get_links(0)
+            links=[]
+            end_year = int(info.year[0])+int(year)
+            interested_years=[]
+            for y in info.year:
+                if int(y)-1<end_year:
+                    interested_years.append(y)
+                else:
+                    break
+            for item in interested_years:
+                for link in all_links:
+                    if '_'+item in link:
+                        links.append(link)
             search.links = links
             info = search.get_info()
         
