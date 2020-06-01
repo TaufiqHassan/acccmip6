@@ -109,13 +109,18 @@ def SearchCmip6(**kwargs):
         if (year!=None):
             all_links = search.get_links(0)
             links=[]
-            end_year = int(info.year[0])+int(year)
+            if int(year)>0:
+                end_year = int(info.year[0])+int(year)
+            else:
+                end_year = int(info.year[len(info.year)-1])+int(year)
             interested_years=[]
             for y in info.year:
-                if int(y)-1<end_year:
+                if (int(year)>0) and (int(y)-1<end_year):
+                    interested_years.append(y)
+                elif (int(year)<0) and (end_year<int(y)+1):
                     interested_years.append(y)
                 else:
-                    break
+                    continue
             for item in interested_years:
                 for link in all_links:
                     if '_'+item in link:

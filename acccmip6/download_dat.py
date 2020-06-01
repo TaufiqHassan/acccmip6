@@ -121,13 +121,28 @@ def DownloadCmip6(**kwargs):
               'models/experiments/variables and so on . . .')
         raise SystemExit
     
+    
     if (year!=None):
-        yr_link=[]
-        for link in links:
-            if year in link:
-                yr_link.append(link)
-        links = yr_link
-        
+        info = search.get_info()
+        yr_links=[]
+        if int(year)>0:
+            end_year = int(info.year[0])+int(year)
+        else:
+            end_year = int(info.year[len(info.year)-1])+int(year)
+        interested_years=[]
+        for y in info.year:
+            if (int(year)>0) and (int(y)-1<end_year):
+                interested_years.append(y)
+            elif (int(year)<0) and (end_year<int(y)+1):
+                interested_years.append(y)
+            else:
+                continue
+        for item in interested_years:
+            for link in links:
+                if '_'+item in link:
+                    yr_links.append(link)
+        links = yr_links
+    
     if (skip!=None):
         links=_get_skipped_links(links,skip)
         
