@@ -343,6 +343,7 @@ def _mod_help():
     
 def _get_rlzn_links(r,all_rlzn,links):    
     new_links=[]
+    r=str(r).replace("'",'').strip('[]').split(',')
     for rlzn in r:
         if rlzn in str(all_rlzn):
             for url in links:

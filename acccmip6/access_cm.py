@@ -7,7 +7,7 @@ Created on Thu Sep  5 01:58:23 2019
 
 from acccmip6.utilities.c6db import SearchDB
 from acccmip6.utilities.CMIP6_database import CMIP6DB
-from acccmip6.utilities.util import color, _mod_help
+from acccmip6.utilities.util import color, _mod_help, _realizations, _get_rlzn_links
 
 def SearchCmip6(**kwargs):
         _var = kwargs.get('variable', None)
@@ -20,6 +20,7 @@ def SearchCmip6(**kwargs):
         _time = kwargs.get('time', None)
         year = kwargs.get('year', None)
         module = kwargs.get('module', None)
+        rlzn = kwargs.get('rlzn', None)
         
         if (module == 'on'):
             _mod_help()
@@ -107,7 +108,7 @@ def SearchCmip6(**kwargs):
         info = search.get_info()
 
         if (year!=None):
-            all_links = search.get_links(0)
+            all_links = info.links
             links=[]
             if int(year)>0:
                 end_year = int(info.year[0])+int(year)
@@ -126,6 +127,13 @@ def SearchCmip6(**kwargs):
                     if '_'+item in link:
                         links.append(link)
             search.links = links
+            info = search.get_info()
+        
+        if (rlzn != None):
+            links = info.links
+            all_rlzn = _realizations(links)._all_realizations()
+            new_links = _get_rlzn_links(rlzn,all_rlzn,links)
+            search.links=new_links
             info = search.get_info()
         
         print(color.LGREEN+"\n\n Currently available models based on your search: \n\n"+color.END,info.mod)
