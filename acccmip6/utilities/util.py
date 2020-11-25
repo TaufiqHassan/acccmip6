@@ -341,7 +341,7 @@ def _mod_help():
     print("\nUse 'show' as the -m/-e/-f/-v/-r argument option instead of the names\n")
     print(color.BOLD+color.UNDERLINE+"Example:"+color.END+" acccmip -o M -m show >>> will generate a list of all currently available models in the CMIP6 database.")
     
-def _get_rlzn_links(r,all_rlzn,links):    
+def _get_rlzn_links(r,all_rlzn,links):
     new_links=[]
     r=str(r).replace("'",'').strip('[]').split(',')
     for rlzn in r:

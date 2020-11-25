@@ -30,7 +30,7 @@ def main():
     realm = _check_list(args.r)
     year = _check_list(args.yr)
     check = args.c
-    rlzn = _check_list(args.rlzn)
+    rlzn = args.rlzn
     desc = args.desc
     time = args.time
     out = args.output_options

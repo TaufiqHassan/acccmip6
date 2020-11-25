@@ -94,17 +94,7 @@ def SearchCmip6(**kwargs):
             except Exception as ee:
                 print('\nDid you mean any of the above?')
                 print(ee)
-                
-        if (year != None):
-            try:
-                search.year=year
-            except ValueError as ve:
-                print(color.LRED+"\n<<No options available.>>\n\nPlease make sure "+str(year)+" exists."+color.END)
-                print(ve)
-            except Exception as ee:
-                print('\nDid you mean any of the above?')
-                print(ee)
-        
+                        
         info = search.get_info()
 
         if (year!=None):

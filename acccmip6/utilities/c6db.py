@@ -114,19 +114,7 @@ class SearchDB(object):
         for zz in range(len(rlzns)):
             self.rlzn.append(rlzns[zz])
         self.rlzn.remove(0)
-        
-    @property
-    def years(self):
-        return self.year
-
-    @years.setter
-    def years(self, val):
-        self.year = [0]
-        year = [x.strip() for x in val.split(',')]
-        for zz in range(len(year)):
-            self.year.append(year[zz])
-        self.year.remove(0)
-    
+            
     
     def get_links(self, manual):
         if manual==0:
