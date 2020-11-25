@@ -75,7 +75,7 @@ Optional Arguments
 - ``-desc`` : 'yes' to get the description of the experiments searched for
 - ``-dir`` : Download directory
 - ``-skip`` : Skip any item (model/experiment/realizations) from your download
-- ``time`` : 'yes' to print out all available time periods
+- ``-time`` : 'yes' to print out all available time periods
 - ``-yr`` : Select data for a time period (number of years)
 
 Demo
