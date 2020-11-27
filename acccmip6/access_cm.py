@@ -7,7 +7,8 @@ Created on Thu Sep  5 01:58:23 2019
 
 from acccmip6.utilities.c6db import SearchDB
 from acccmip6.utilities.CMIP6_database import CMIP6DB
-from acccmip6.utilities.util import color, _mod_help, _realizations, _get_rlzn_links
+from acccmip6.utilities.util import _get_rlzn_links, _get_skipped_links
+from acccmip6.utilities.util import color, _mod_help, _realizations
 
 def SearchCmip6(**kwargs):
         _var = kwargs.get('variable', None)
@@ -21,6 +22,7 @@ def SearchCmip6(**kwargs):
         year = kwargs.get('year', None)
         module = kwargs.get('module', None)
         rlzn = kwargs.get('rlzn', None)
+        skip = kwargs.get('skip', None)
         
         if (module == 'on'):
             _mod_help()
@@ -118,11 +120,17 @@ def SearchCmip6(**kwargs):
                         links.append(link)
             search.links = links
             info = search.get_info()
-        
+                
         if (rlzn != None):
             links = info.links
             all_rlzn = _realizations(links)._all_realizations()
             new_links = _get_rlzn_links(rlzn,all_rlzn,links)
+            search.links=new_links
+            info = search.get_info()
+            
+        if (skip!=None):
+            links = info.links
+            new_links=_get_skipped_links(links,skip)
             search.links=new_links
             info = search.get_info()
         

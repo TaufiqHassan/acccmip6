@@ -145,11 +145,11 @@ def DownloadCmip6(**kwargs):
     
     if (skip!=None):
         links=_get_skipped_links(links,skip)
-        
+    
+    unused_links=[]    
     if (rlzn != None):
         all_rlzn = _realizations(links)._all_realizations()
         new_links = _get_rlzn_links(rlzn,all_rlzn,links)
-        unused_links=list(set(links)-set(new_links))
         links=new_links
     
     if (path == None):
@@ -200,5 +200,6 @@ def DownloadCmip6(**kwargs):
         print("\n\n",manual," files require an ESGF account/openID.")
         print("\nwget script created for these files!\nUse it with your openid/password >> 'wget_script -H'")
         with HidePrint():
-            search.get_links(1)
+            original_links = search.get_links(1)
+        unused_links=list(set(original_links)-set(links))
         _manual_wget(passed_urls,unused_links)

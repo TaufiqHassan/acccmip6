@@ -54,74 +54,19 @@ Download stuck or slow ::
 
 **Can I download or search data within a specific time period?** 
 
-- Yes, using the ``-yr`` option. 
+- Yes, using the ``-yr`` option. Checkout the extra arguments.
 
-- For instance, let's look at the available time period for a particular search ::
+**Some files are not downloading after showing a 401 Unauthorized error! How can I download those files?**
 
-        acccmip6.py -o S -v pr -e historical -f mon -m NorESM2-LM -time yes
+- This is a common server issue found in CMIPs. ``acccmip6`` produces an error and skips over these files by producing ::
 
-will show all the time periods available as a list at the bottom ::
+    <<401 Unauthorized: restricted access!!>>
 
-        TIPS: Use the check (-c) argument to check your inputs.
+    From ESGF: Before you can download this data, you have to join a data access control group 
+    since acknowledgement of a policy is a condition for this data download.
 
+    Requires registration/manual download . . . :(
 
-        Currently available models based on your search:
+- It stores all unresolved files to a wget script in the same download directory once the download finishes. 
 
-        ['NorESM2-LM']
-
-        Currently available variables based on your search:
-
-        ['pr']
-
-        Currently available experiments based on your search:
-
-        ['historical']
-
-
-
-        Number of files: 51
-
-
-
-        Available realizations: [1, 2, 3]
-
-
-        < < < Data available for these time periods > > >
-
-        ['1850', '1860', '1870', '1880', '1890', '1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010']
-
-- So, avalable time periods are 1850-1859, 1860-1869 and so on until 2010-2014. To download only the first 10 years (e.g. 1850-1859), use ``-yr 10`` or the last 5 years (e.g. 2010-2014), use ``-yr -5`` ::
-
-        python acccmip6.py -o S -v pr -e historical -f mon -m NorESM2-LM -yr -5 -time yes
-
-        TIPS: Use the check (-c) argument to check your inputs.
-
-
-        Currently available models based on your search:
-
-        ['NorESM2-LM']
-
-        Currently available variables based on your search:
-
-        ['pr']
-
-        Currently available experiments based on your search:
-
-        ['historical']
-
-
-
-        Number of files: 3
-
-
-
-        Available realizations: [1, 2, 3]
-
-
-        < < < Data available for these time periods > > >
-
-        ['2010']
-
-- Note that the number of files is reduced from 51 to 3! This is very useful if the the data are as frequently chunked as this particular example. 
-
-- ``-yr 11`` will download the 1850-1859 and 1860-1869 chunks. So, even though the user needs only the first 11 years of data, the package is limited to download whatever chunk is available to fullfill that 11 years of time period.
+- You can then use that script with your openid and password with -H option (e.g. ``./wget_script -H``).

@@ -194,7 +194,87 @@ Optional arguments 3
         Historical WMGHG and Halocarbon concentrations.  Historical ozone precursor emissions 
         (e.g. NOx).  Aerosols and aerosol precursors fixed at 1850 emission levels.
 
+Extra arguments
+---------------
 
+Use these optional arguments with in addition to **Optional arguments**.
+
+- ``-rlzn`` : select a realization
+
+- ``-skip`` : skip items during download
+
+- ``-time`` : 'yes' print out all available time periods
+
+**general usage** ::
+
+    acccmip6.py -o S -v pr -e historical -f mon -m NorESM2-LM -time yes
+
+**general output:** avalable time periods are 1850-1859, 1860-1869 and so on until 2010-2014. To download only the first 10 years (e.g. 1850-1859), use ``-yr 10`` or the last 5 years (e.g. 2010-2014), use ``-yr -5`` ::
+
+        TIPS: Use the check (-c) argument to check your inputs.
+
+
+        Currently available models based on your search:
+
+        ['NorESM2-LM']
+
+        Currently available variables based on your search:
+
+        ['pr']
+
+        Currently available experiments based on your search:
+
+        ['historical']
+
+
+
+        Number of files: 51
+
+
+
+        Available realizations: [1, 2, 3]
+
+
+        < < < Data available for these time periods > > >
+
+        ['1850', '1860', '1870', '1880', '1890', '1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010']
+        
+- ``-yr`` : select data for a specific time period
+
+**general usage:** select number of years from start with +value and from end with -value ::
+
+    python acccmip6.py -o S -v pr -e historical -f mon -m NorESM2-LM -yr -5 -time yes
+
+**general output:** Note that the number of files is reduced from 51 to 3! This is very useful if the the data are as frequently chunked as this particular example. ``-yr 11`` will download the 1850-1859 and 1860-1869 chunks. So, even though the user needs only the first 11 years of data, the package is limited to download whatever chunk is available to fullfill that 11 years of time period. ::
+
+        TIPS: Use the check (-c) argument to check your inputs.
+
+
+        Currently available models based on your search:
+
+        ['NorESM2-LM']
+
+        Currently available variables based on your search:
+
+        ['pr']
+
+        Currently available experiments based on your search:
+
+        ['historical']
+
+
+
+        Number of files: 3
+
+
+
+        Available realizations: [1, 2, 3]
+
+
+        < < < Data available for these time periods > > >
+
+        ['2010']
+        
 
 **acccmip6** package accesses all publicly available CMIP6 data servers. Currently available servers -
 

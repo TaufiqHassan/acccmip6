@@ -15,6 +15,8 @@ Use these optional arguments with in addition to **Optional arguments 1** and **
 
 - ``-skip`` : skip items during download
 
+- ``-yr`` : select data for a specific time period
+
 **General usage** ::
 
         acccmip6 -o D -e hist-piNTCF -v vas -m MIROC6
@@ -97,3 +99,4 @@ Use these optional arguments with in addition to **Optional arguments 1** and **
 **skipping items:** skip any item (models/experiments/variables) you don't want to download ::
 
         acccmip6 -o D -e ssp245-aer,ssp245,hist-aer -MIROC6,CanESM5 -f mon -r atmos -skip hist-aer,ua,va,zg
+            
