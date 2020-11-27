@@ -28,6 +28,9 @@ All usable arguments and their explanations -
 - ``-c`` : 'yes' to use checker when searching or downloading. This helps to find out whether the search items are currently available. If not, it will produce suggestions that matches closely to your search.
 - ``-desc`` : 'yes' to get the description of the experiments searched for
 - ``-dir`` : Download directory
+- ``-skip`` : Skip any item (model/experiment/realizations) from your download
+- ``-time`` : 'yes' to print out all available time periods
+- ``-yr`` : Select data for a time period (number of years)
 
 Example usage ::
 

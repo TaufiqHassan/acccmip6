@@ -203,13 +203,14 @@ Use these optional arguments with in addition to **Optional arguments**.
 
 - ``-skip`` : skip items during download
 
+
 - ``-time`` : 'yes' print out all available time periods
 
 **general usage** ::
 
     acccmip6.py -o S -v pr -e historical -f mon -m NorESM2-LM -time yes
 
-**general output:** avalable time periods are 1850-1859, 1860-1869 and so on until 2010-2014. To download only the first 10 years (e.g. 1850-1859), use ``-yr 10`` or the last 5 years (e.g. 2010-2014), use ``-yr -5`` ::
+**general output:** Avalable time periods are 1850-1859, 1860-1869 and so on until 2010-2014. ::
 
         TIPS: Use the check (-c) argument to check your inputs.
 
@@ -238,10 +239,10 @@ Use these optional arguments with in addition to **Optional arguments**.
         < < < Data available for these time periods > > >
 
         ['1850', '1860', '1870', '1880', '1890', '1900', '1910', '1920', '1930', '1940', '1950', '1960', '1970', '1980', '1990', '2000', '2010']
-        
+
 - ``-yr`` : select data for a specific time period
 
-**general usage:** select number of years from start with +value and from end with -value ::
+**general usage:** To download only the first 10 years (e.g. 1850-1859), use ``-yr 10`` or the last 5 years (e.g. 2010-2014), use ``-yr -5``. ::
 
     python acccmip6.py -o S -v pr -e historical -f mon -m NorESM2-LM -yr -5 -time yes
 
