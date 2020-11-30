@@ -180,8 +180,8 @@ class _Construct_urls(object):
 
         with open(str(dir_path)) as f:
             urls = f.read()
-            links1 = re.findall('http://.*.nc',urls)
-            links2 = re.findall('https://.*.nc',urls)
+            links1 = re.findall("'http://.*.nc'",urls)
+            links2 = re.findall("'https://.*.nc'",urls)
             links = links1 + links2
             f.close()
         if (keep==0):
@@ -194,7 +194,6 @@ class _realizations(object):
          self.links = links
     
     def _all_realizations(self):
-                
         er=[0]*len(self.links)
         for i in range(len(self.links)):
             try:
