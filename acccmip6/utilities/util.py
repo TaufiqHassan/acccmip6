@@ -180,8 +180,8 @@ class _Construct_urls(object):
 
         with open(str(dir_path)) as f:
             urls = f.read()
-            links1 = re.findall("'http://.*.nc'",urls)
-            links2 = re.findall("'https://.*.nc'",urls)
+            links1 = re.findall('http://.*\.nc',urls)
+            links2 = re.findall('https://.*\.nc',urls)
             links = links1 + links2
             f.close()
         if (keep==0):

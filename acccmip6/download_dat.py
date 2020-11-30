@@ -165,7 +165,7 @@ def DownloadCmip6(**kwargs):
     n = 0
     m = 0
     manual = 0
-    passed_urls=[]    
+    passed_urls=[]
     for url in links:
         startTime = time.time()
         try:
