@@ -307,6 +307,12 @@ class _extract_info:
                          _exp.add(data[5])
                          _var.add(data[2].split('/')[(len(data[2].split('/')))-1])
                          _freq.add(data[2].split('/')[7])
+                     elif (len(data)==6):
+                        _mod.add(data[2])
+                        _realm.add(data[1])
+                        _exp.add(data[3])
+                        _var.add(data[0].split('/')[-1])
+                        _freq.add(data[1])
                      else:
                         _mod.add(data[4])
                         _realm.add(data[2].split('/')[6])
