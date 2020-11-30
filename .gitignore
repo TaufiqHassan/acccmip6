@@ -13,6 +13,7 @@ build/
 develop-eggs/
 dist/
 downloads/
+CMIP6/
 eggs/
 .eggs/
 lib/
