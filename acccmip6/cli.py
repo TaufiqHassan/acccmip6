@@ -16,6 +16,7 @@ def main():
     parser.add_argument("-f", help="Output frequency", default=None)
     parser.add_argument("-r", help="Output realm", default=None)
     parser.add_argument("-rlzn", help="Select realization", default=None)
+    parser.add_argument("-cr", help="Select common realizations", action='store_true', default=None)
     parser.add_argument("-yr", help="Select year", default=None)
     parser.add_argument("-c", help="Checker: yes to check inputs", default=None)
     parser.add_argument("-desc", help="Description: yes to print out experiment description", default=None)
@@ -31,6 +32,7 @@ def main():
     year = _check_list(args.yr)
     check = args.c
     rlzn = args.rlzn
+    cr = args.cr
     desc = args.desc
     time = args.time
     out = args.output_options
@@ -38,7 +40,7 @@ def main():
     skipped = args.skip
     
     if (out == 'S'):
-        SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, skip=skipped)
+        SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, skip=skipped, cr=cr)
     elif (out == 'D'):
         DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, skip=skipped, year=year)
     elif (out == 'M'):

@@ -23,6 +23,7 @@ def SearchCmip6(**kwargs):
         module = kwargs.get('module', None)
         rlzn = kwargs.get('rlzn', None)
         skip = kwargs.get('skip', None)
+        cr = kwargs.get('cr', None)
         
         if (module == 'on'):
             _mod_help()
@@ -134,11 +135,32 @@ def SearchCmip6(**kwargs):
             search.links=new_links
             info = search.get_info()
         
+        if (cr!=None):
+            links = info.links
+            exps = info.exp
+            ers=[]
+            for i in range(len(exps)):
+                ers1 = [s for s in links if exps[i] in s]
+                r1 = _realizations(ers1)._all_realizations()
+                if i==1:
+                    ers2 = [s for s in links if exps[i-1] in s]
+                    r2 = _realizations(ers2)._all_realizations()
+                elif i>1:
+                    r2 = ers
+                else:
+                    ers2 = ers1
+                    r2 = _realizations(ers2)._all_realizations()
+                ers = list(set(r1) & set(r2))
+            info.rlzn = ers
+        
         print(color.LGREEN+"\n\n Currently available models based on your search: \n\n"+color.END,info.mod)
         print(color.LGREEN+"\nCurrently available variables based on your search: \n\n"+color.END,info.var)
         print(color.LGREEN+"\nCurrently available experiments based on your search: \n\n"+color.END,info.exp,"\n\n")
         print(color.LGREEN+"\nNumber of files:"+color.END, info.n_files,"\n\n")
-        print(color.LGREEN+"\nAvailable realizations:"+color.END, info.rlzn,"\n\n")
+        if (cr!=None):
+            print(color.LGREEN+"\nAvailable common realizations:"+color.END, info.rlzn,"\n\n")
+        else:
+            print(color.LGREEN+"\nAvailable realizations:"+color.END, info.rlzn,"\n\n")
         if (_time != None):
             print(color.YELLOW+"< < < Data available for these time periods > > >\033[0m \n")
             print(info.year)
