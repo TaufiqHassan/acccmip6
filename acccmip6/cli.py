@@ -42,7 +42,7 @@ def main():
     if (out == 'S'):
         SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, skip=skipped, cr=cr)
     elif (out == 'D'):
-        DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, skip=skipped, year=year)
+        DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, skip=skipped, year=year, cr=cr)
     elif (out == 'M'):
         SearchCmip6(module='on', model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm)
         

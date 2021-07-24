@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='acccmip6',
-    version='5.1.3',
+    version='5.1.4',
     description="Package for accessing CMIP6 database in real-time",
     long_description=readme,
     author="Taufiq Hassan",

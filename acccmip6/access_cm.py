@@ -151,15 +151,18 @@ def SearchCmip6(**kwargs):
                     ers2 = ers1
                     r2 = _realizations(ers2)._all_realizations()
                 ers = list(set(r1) & set(r2))
+            erss=['_r'+str(s)+'i' for s in ers]
+            links=[s for s in links if any(xs in s for xs in erss)]
             info.rlzn = ers
         
         print(color.LGREEN+"\n\n Currently available models based on your search: \n\n"+color.END,info.mod)
         print(color.LGREEN+"\nCurrently available variables based on your search: \n\n"+color.END,info.var)
         print(color.LGREEN+"\nCurrently available experiments based on your search: \n\n"+color.END,info.exp,"\n\n")
-        print(color.LGREEN+"\nNumber of files:"+color.END, info.n_files,"\n\n")
         if (cr!=None):
+            print(color.LGREEN+"\nNumber of files:"+color.END, len(links),"\n\n")
             print(color.LGREEN+"\nAvailable common realizations:"+color.END, info.rlzn,"\n\n")
         else:
+            print(color.LGREEN+"\nNumber of files:"+color.END, info.n_files,"\n\n")
             print(color.LGREEN+"\nAvailable realizations:"+color.END, info.rlzn,"\n\n")
         if (_time != None):
             print(color.YELLOW+"< < < Data available for these time periods > > >\033[0m \n")

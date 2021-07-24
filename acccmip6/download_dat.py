@@ -59,6 +59,7 @@ def DownloadCmip6(**kwargs):
     year = kwargs.get('year', None)
     path = kwargs.get('path', None)
     skip = kwargs.get('skip', None)
+    cr = kwargs.get('cr', None)
     
     search=SearchDB()
     if (_check == 'Yes') or (_check == 'yes'):
@@ -113,7 +114,7 @@ def DownloadCmip6(**kwargs):
     
     print("\nFinding server . . .")
     links = search.get_links(0)
-    
+        
     if (links == []):
         print('\n'+color.LRED+'<<Invalid search items!>>'+color.END)
         print('\n'+color.UNDERLINE+color.BOLD+'TIPS 1:'+color.END+' Use the check (-c) argument to check your inputs.'+color.END)
@@ -151,6 +152,25 @@ def DownloadCmip6(**kwargs):
         all_rlzn = _realizations(links)._all_realizations()
         new_links = _get_rlzn_links(rlzn,all_rlzn,links)
         links=new_links
+    
+    if (cr!=None):
+        info = search.get_info()
+        exps = info.exp
+        ers=[]
+        for i in range(len(exps)):
+            ers1 = [s for s in links if exps[i] in s]
+            r1 = _realizations(ers1)._all_realizations()
+            if i==1:
+                ers2 = [s for s in links if exps[i-1] in s]
+                r2 = _realizations(ers2)._all_realizations()
+            elif i>1:
+                r2 = ers
+            else:
+                ers2 = ers1
+                r2 = _realizations(ers2)._all_realizations()
+            ers = list(set(r1) & set(r2))
+        ers=['_r'+str(s)+'i' for s in ers]
+        links=[s for s in links if any(xs in s for xs in ers)]
     
     if (path == None):
         dir_path = _dir_path()._make_dir()
