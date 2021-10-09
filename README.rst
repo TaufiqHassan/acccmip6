@@ -39,7 +39,8 @@ Features 功能
 - Access definition of the experiments
 	获取试验的定义
 - Skips already existing files
-
+	跳过已经存在的文件
+	
 Installation 安装
 ------------
 
@@ -63,41 +64,51 @@ You may also install the package via conda -
 
 ``conda install -c thassan acccmip6``
 
-Usage
+也可以通过conda进行安装 - 
+
+``conda install -c thassan acccmip6``
+
+Usage 用法
 -----
 
 ``acccmip6`` searches the live CMIP6 database and spits out currently available models, experiments and variables that satisfies your search criteria. It will also output the number of available files. 
 ``acccmip6`` also tries to be a good command-line interface (CLI). Run ``acccmip6 -h`` to see a help message with all the arguments you can pass.
 
-Required Arguments
+``acccmip6``根据用户提供的模型、试验、变量等条件即时搜索CMIP6数据集。``acccmip6``提供良好的命令行交互。通过``acccmip6 -h`` 可以查看所有参数的帮助信息。
+
+Required Arguments 必须参数
 ------------------
 
 - ``-o`` : Takes output type. 'S' for searching the database or 'D' for downloading from the database.
 
-Optional Arguments
+- ``-o`` : 输出类型。 'S' 用于搜索。'D' 用于下载。
+
+Optional Arguments 可选参数
 ------------------
 
-- ``-m`` : Model names (multiple comma separated names are allowed)
-- ``-e`` : Experiment names
-- ``-f`` : CMIP6 output frequency (e.g. mon, day etc.)
-- ``-v`` : Variable names
-- ``-r`` : Realm name (e.g. atmos, ocean etc.)
-- ``-rlzn`` : Select a specified realization
-- ``-c`` : 'yes' to use checker when searching or downloading. This helps to find out whether the search items are currently available. If not, it will produce suggestions that matches closely to your search.
-- ``-desc`` : 'yes' to get the description of the experiments searched for
-- ``-dir`` : Download directory
-- ``-skip`` : Skip any item (model/experiment/realizations) from your download
-- ``-time`` : 'yes' to print out all available time periods
-- ``-yr`` : Select data for a time period (number of years)
+- ``-m`` : Model names (multiple comma separated names are allowed) 模型名
+- ``-e`` : Experiment names 试验民
+- ``-f`` : CMIP6 output frequency (e.g. mon, day etc.) CMIP6时间分辨率
+- ``-v`` : Variable names 变量名
+- ``-r`` : Realm name (e.g. atmos, ocean etc.) Realm名
+- ``-rlzn`` : Select a specified realization 指定realization
+- ``-c`` : 'yes' to use checker when searching or downloading. This helps to find out whether the search items are currently available. If not, it will produce suggestions that matches closely to your search.  'yes'检查搜索或下载的选项是否可用。如果不可用，提供尽可能接近的建议。
+- ``-desc`` : 'yes' to get the description of the experiments searched for 'yes'获取试验描述
+- ``-dir`` : Download directory 指定下载目录
+- ``-skip`` : Skip any item (model/experiment/realizations) from your download 下载中跳过
+- ``-time`` : 'yes' to print out all available time periods 'yes'显示可用的时间段
+- ``-yr`` : Select data for a time period (number of years) 指定时间
 
-Demo
+Demo 事例
 -----
 
 Search CMIP6 database with ``acccmip6 -o S``
+使用 ``acccmip6 -o S``搜索CMIP6数据
 
 .. image:: docs/searching_demo.gif
 
 Download CMIP6 data with ``acccmip6 -o D``
+使用 ``acccmip6 -o D``搜索CMIP6数据
 
 .. image:: docs/downloading_demo.gif
 
