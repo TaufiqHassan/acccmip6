@@ -21,27 +21,37 @@ Access Cmip6
 * GitHub repo: https://github.com/TaufiqHassan/acccmip6
 * Documentation: https://acccmip6.readthedocs.org.
 
-Features功能
+Features 功能
 --------
 
 - Real-time search and download from continuously updating CMIP6 database
-  实时搜索下载持续更新的CMIP6数据
+	实时搜索下载持续更新的CMIP6数据
 - Find data for any specific items (e.g. model, experiment, variable, frequency, realm)
+	通过用户指定的选项（如model, experiment, variable, frequency, realm）获取数据
 - Search and download any combination of the above items
+	根据上述选项的任意组合搜索下载数据
 - Find the total number of available files and realizations
+	确定可获得的文件和文件组（有的试验数据是分为多个文件储存的）的总数量
 - Validate your search items
+	检验你的搜索选项
 - Get suggestions if necessary
+	必要时提供建议
 - Access definition of the experiments
+	获取试验的定义
 - Skips already existing files
 
-Installation
+Installation 安装
 ------------
 
 Install is as simple as typing -
-
+安装只需要输入-
 ``pip install acccmip6``
 
 Requires python v3.5 or up and pip. Mac users can use ``brew install python3`` and ``python get-pip.py`` from terminal. Windows users can use `Windows Subsystem`_.
+
+.. _`Windows Subsystem`: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+需要python3.5以上环境和pip。Mac用户在终端可以使用``brew install python3`` 和 ``python get-pip.py``。Windows用户可以使用子系统`Windows Subsystem`_.
 
 .. _`Windows Subsystem`: https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
