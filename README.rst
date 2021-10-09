@@ -16,14 +16,16 @@ Access Cmip6
 
 
 ``acccmip6`` package can access CMIP6 database in real-time.
+``acccmip6`` 包可以实时访问CMIP6数据集.
 
 * GitHub repo: https://github.com/TaufiqHassan/acccmip6
 * Documentation: https://acccmip6.readthedocs.org.
 
-Features
+Features功能
 --------
 
 - Real-time search and download from continuously updating CMIP6 database
+  实时搜索下载持续更新的CMIP6数据
 - Find data for any specific items (e.g. model, experiment, variable, frequency, realm)
 - Search and download any combination of the above items
 - Find the total number of available files and realizations
