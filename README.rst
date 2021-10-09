@@ -74,7 +74,7 @@ Usage 用法
 ``acccmip6`` searches the live CMIP6 database and spits out currently available models, experiments and variables that satisfies your search criteria. It will also output the number of available files. 
 ``acccmip6`` also tries to be a good command-line interface (CLI). Run ``acccmip6 -h`` to see a help message with all the arguments you can pass.
 
-``acccmip6``根据用户提供的模型、试验、变量等条件即时搜索CMIP6数据集。``acccmip6``提供良好的命令行交互。通过``acccmip6 -h`` 可以查看所有参数的帮助信息。
+根据用户提供的模型、试验、变量等条件即时搜索CMIP6数据集。提供良好的命令行交互。可以查看所有参数的帮助信息。
 
 Required Arguments 必须参数
 ------------------
