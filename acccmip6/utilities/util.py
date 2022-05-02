@@ -116,12 +116,13 @@ class _Construct_urls(object):
     _limit = 10000
     _Durl = "https://esgf-node.llnl.gov/esg-search/wget?project=CMIP6"
     
-    def __init__(self,var,mod,realm,exp,freq):
+    def __init__(self,var,mod,realm,exp,freq,**kwargs):
          self.var = var
          self.mod = mod
          self.realm = realm
          self.exp = exp
          self.freq = freq
+         self.set_server = kwargs.get('set_server', None)
          
     def _add_options(self, x, zz):
         if (x=='mod'):
@@ -135,7 +136,6 @@ class _Construct_urls(object):
         if (x=='var'):
             return "&variable="+str(self.var[zz])
             
-        
     def _get_url(self):
         if (self.mod):
             for zz in range(len(self.mod)):
@@ -165,18 +165,19 @@ class _Construct_urls(object):
         return cls._Durl
     
     def _get_wget(self, keep):
-        url = self._get_url()
-        try:
-            requests.get(url, timeout = 10)
-            p = Path('.')
-            dir_path = p.absolute() / 'wget_script.sh'
-            urllib.request.urlretrieve(url, str(dir_path))
-        except:
-            self._Durl = _Construct_urls._set_Durl(_choose_server2())
+        if self.set_server!=None:
+            self._Durl = self.set_server+'/esg-search/wget?project=CMIP6'
             url = self._get_url()
-            p = Path('.')
-            dir_path = p.absolute() / 'wget_script.sh'
-            urllib.request.urlretrieve(url, str(dir_path))
+        else:
+            url = self._get_url()
+            try:
+                requests.get(url, timeout = 10)
+            except:
+                self._Durl = _Construct_urls._set_Durl(_choose_server2())
+                url = self._get_url()
+        p = Path('.')
+        dir_path = p.absolute() / 'wget_script.sh'
+        urllib.request.urlretrieve(url, str(dir_path))
 
         with open(str(dir_path)) as f:
             urls = f.read()
@@ -219,7 +220,7 @@ class _realizations(object):
 
 class _extract_info:
     
-    def __init__(self,var,mod,realm,exp,freq,n_files,rlzn,year,links):
+    def __init__(self,var,mod,realm,exp,freq,n_files,rlzn,year,links,**kwargs):
          self.var = var
          self.mod = mod
          self.realm = realm
@@ -229,10 +230,11 @@ class _extract_info:
          self.rlzn = rlzn
          self.year = year
          self.links = links
+         self.set_server = kwargs.get('set_server', None)
     
     def _get_info(self):
          if self.links == None:
-             links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq)._get_wget(0)
+             links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq, set_server=self.set_server)._get_wget(0)
          else:
              links = self.links
          rlzn = _realizations(links)._all_realizations()

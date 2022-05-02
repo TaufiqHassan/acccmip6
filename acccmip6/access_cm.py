@@ -24,6 +24,7 @@ def SearchCmip6(**kwargs):
         rlzn = kwargs.get('rlzn', None)
         skip = kwargs.get('skip', None)
         cr = kwargs.get('cr', None)
+        _set_server = kwargs.get('set_server', None)
         
         if (module == 'on'):
             _mod_help()
@@ -97,6 +98,8 @@ def SearchCmip6(**kwargs):
             except Exception as ee:
                 print('\nDid you mean any of the above?')
                 print(ee)
+        if (_set_server != None):
+            search.set_server=_set_server
                         
         info = search.get_info()
 

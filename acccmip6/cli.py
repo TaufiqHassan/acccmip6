@@ -22,6 +22,7 @@ def main():
     parser.add_argument("-desc", help="Description: yes to print out experiment description", default=None)
     parser.add_argument("-time", help="Description: yes to print out avalable time periods", default=None)
     parser.add_argument("-skip", help="Skip any item in your download", default=None)
+    parser.add_argument("-serv", help="Set user-defined server", default=None)
 	
     args = parser.parse_args()
     model = _check_list(args.m)
@@ -38,9 +39,10 @@ def main():
     out = args.output_options
     dl_dir = args.dir
     skipped = args.skip
+    server = args.serv
     
     if (out == 'S'):
-        SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, skip=skipped, cr=cr)
+        SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, skip=skipped, cr=cr, set_server=server)
     elif (out == 'D'):
         DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, skip=skipped, year=year, cr=cr)
     elif (out == 'M'):
