@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If interested, cite it as below."
+authors:
+- family-names: "Hassan"
+  given-names: "Taufiq"
+  orcid: "0000-0003-2361-6361"
+title: "acccmip6: Python package for accessing and downloading CMIP6 data"
+version: 5.2.0
+doi: 10.5281/zenodo.6559056
+date-released: 2022-05-18
+url: "https://github.com/TaufiqHassan/acccmip6"
