@@ -21,7 +21,7 @@ Access Cmip6
 * GitHub repo: https://github.com/TaufiqHassan/acccmip6
 * Documentation: https://acccmip6.readthedocs.org.
 
-Features 功能
+Features
 --------
 
 - Real-time search and download from continuously updating CMIP6 database
@@ -41,7 +41,7 @@ Features 功能
 - Skips already existing files
 	跳过已经存在的文件
 	
-Installation 安装
+Installation
 ------------
 
 Install is as simple as typing -
@@ -68,7 +68,7 @@ You may also install the package via conda -
 
 ``conda install -c thassan acccmip6``
 
-Usage 用法
+Usage
 -----
 
 ``acccmip6`` searches the live CMIP6 database and spits out currently available models, experiments and variables that satisfies your search criteria. It will also output the number of available files. 
@@ -76,14 +76,14 @@ Usage 用法
 
 根据用户提供的模型、试验、变量等条件即时搜索CMIP6数据集。提供良好的命令行交互。可以查看所有参数的帮助信息。
 
-Required Arguments 必须参数
+Required Arguments
 ------------------
 
 - ``-o`` : Takes output type. 'S' for searching the database or 'D' for downloading from the database.
 
 - ``-o`` : 输出类型。 'S' 用于搜索。'D' 用于下载。
 
-Optional Arguments 可选参数
+Optional Arguments
 ------------------
 
 - ``-m`` : Model names (multiple comma separated names are allowed) 模型名
@@ -99,7 +99,7 @@ Optional Arguments 可选参数
 - ``-time`` : 'yes' to print out all available time periods 'yes'显示可用的时间段
 - ``-yr`` : Select data for a time period (number of years) 指定时间
 
-Demo 事例
+Demo
 -----
 
 Search CMIP6 database with ``acccmip6 -o S``
