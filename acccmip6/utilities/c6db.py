@@ -20,6 +20,7 @@ class SearchDB(object):
         self._realm = kwargs.get('realm', None)
         self.n_files = kwargs.get('n_files', None)
         self.rlzn = kwargs.get('rlzn', None)
+        self.nd = kwargs.get('node', None)
         self.year = kwargs.get('year', None)
         self.links = kwargs.get('links', None)
         self.set_server = kwargs.get('set_server', None)
@@ -115,20 +116,32 @@ class SearchDB(object):
         for zz in range(len(rlzns)):
             self.rlzn.append(rlzns[zz])
         self.rlzn.remove(0)
+        
+    @property
+    def node(self):
+        return self.nd
+
+    @node.setter
+    def node(self, val):
+        self.nd = [0]
+        nodes = [x.strip() for x in val.split(',')]
+        for zz in range(len(nodes)):
+            self.nd.append(nodes[zz])
+        self.nd.remove(0)
             
     
     def get_links(self, manual):
         if manual==0:
-            links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, set_server=self.set_server)._get_wget(0)
+            links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, node=self.nd, set_server=self.set_server)._get_wget(0)
         else:
-            links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, set_server=self.set_server)._get_wget(1)
+            links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, node=self.nd, set_server=self.set_server)._get_wget(1)
         return links
     
     def get_info(self):
-        info = _extract_info(self._var, self._mod, self._realm, self._exp, self._freq, self.n_files, self.rlzn, self.year,self.links, set_server=self.set_server)._get_info()
+        info = _extract_info(self._var, self._mod, self._realm, self._exp, self._freq, self.n_files, self.rlzn, self.year,self.links, node=self.nd, set_server=self.set_server)._get_info()
         return info
     
     def get_url(self):
-        url = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, set_server=self.set_server)._get_url()
+        url = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, node=self.nd, set_server=self.set_server)._get_url()
         return url
     

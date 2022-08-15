@@ -15,6 +15,7 @@ def main():
     parser.add_argument("-v", help="Variable names", default=None)
     parser.add_argument("-f", help="Output frequency", default=None)
     parser.add_argument("-r", help="Output realm", default=None)
+    parser.add_argument("-n", help="Output node", default=None)
     parser.add_argument("-rlzn", help="Select realization", default=None)
     parser.add_argument("-cr", help="Select common realizations", action='store_true', default=None)
     parser.add_argument("-yr", help="Select year", default=None)
@@ -30,6 +31,7 @@ def main():
     variable = _check_list(args.v)
     frequency = _check_list(args.f)
     realm = _check_list(args.r)
+    node = _check_list(args.n)
     year = _check_list(args.yr)
     check = args.c
     rlzn = args.rlzn
@@ -42,9 +44,9 @@ def main():
     server = args.serv
     
     if (out == 'S'):
-        SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, skip=skipped, cr=cr, set_server=server)
+        SearchCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, desc=desc, year=year, time=time, rlzn=rlzn, node=node, skip=skipped, cr=cr, set_server=server)
     elif (out == 'D'):
-        DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, skip=skipped, year=year, cr=cr)
+        DownloadCmip6(model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, check=check, path=dl_dir, rlzn=rlzn, node=node, skip=skipped, year=year, cr=cr)
     elif (out == 'M'):
-        SearchCmip6(module='on', model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm)
+        SearchCmip6(module='on', model=model, experiment=experiment, variable=variable, frequency=frequency, realm=realm, node=node)
         

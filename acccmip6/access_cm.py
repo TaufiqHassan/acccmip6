@@ -16,6 +16,7 @@ def SearchCmip6(**kwargs):
         _exp = kwargs.get('experiment', None)
         _freq = kwargs.get('frequency', None)
         _realm = kwargs.get('realm', None)
+        _node = kwargs.get('node', None)
         _check = kwargs.get('check', None)
         _desc = kwargs.get('desc', None)
         _time = kwargs.get('time', None)
@@ -43,6 +44,9 @@ def SearchCmip6(**kwargs):
             if (_realm == 'show') or (_realm == 'Show'):
                 ModDB = CMIP6DB()
                 print(ModDB.available_realmns())
+            if (_node == 'show') or (_node == 'Show'):
+                ModDB = CMIP6DB()
+                print(ModDB.available_nodes())
             raise SystemExit
     
 
@@ -94,6 +98,15 @@ def SearchCmip6(**kwargs):
                 search.realm=_realm
             except ValueError as ve:
                 print(color.LRED+"\n<<No options available.>>\n\nPlease make sure "+str(_realm)+" exists."+color.END)
+                print(ve)
+            except Exception as ee:
+                print('\nDid you mean any of the above?')
+                print(ee)
+        if (_node != None):
+            try:
+                search.node=_node
+            except ValueError as ve:
+                print(color.LRED+"\n<<No options available.>>\n\nPlease make sure "+str(_node)+" exists."+color.END)
                 print(ve)
             except Exception as ee:
                 print('\nDid you mean any of the above?')

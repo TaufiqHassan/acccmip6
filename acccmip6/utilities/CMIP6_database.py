@@ -138,6 +138,25 @@ class CMIP6DB:
                 print("Available frequencies: \n\n")
                 return self._holder
             
+    def available_nodes(self):
+        try:
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_data_node_',self._fdata))
+                print("\nCurrently ", self._avail," nodes has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_data_node_')[zz+2].split('" name="')[0])
+                print("Available nodes: \n\n")
+                return self._holder
+        except:
+            self._Curl=_choose_server()
+            with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
+                self._avail = len(re.findall('id="checkbox_data_node_',self._fdata))
+                print("\nCurrently ", self._avail," nodes has outputs!\n")
+                for zz in range(self._avail):
+                    self._holder.append(self._fdata.split('checkbox_data_node_')[zz+2].split('" name="')[0])
+                print("Available nodes: \n\n")
+                return self._holder
+            
     def var_stdName(self):
         try:
             with _fetch_url(self._set_curl(self._Curl)) as self._fdata:
@@ -156,7 +175,7 @@ class CMIP6DB:
                     self._holder.append(self._fdata.split('checkbox_cf_standard_name_')[zz+2].split('" name="')[0])
                 print("Available frequencies: \n\n")
                 return self._holder
-    
+            
     @staticmethod
     def _get_definition(exp):
         resource_package = __name__

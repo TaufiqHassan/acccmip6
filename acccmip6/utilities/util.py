@@ -123,6 +123,7 @@ class _Construct_urls(object):
          self.exp = exp
          self.freq = freq
          self.set_server = kwargs.get('set_server', None)
+         self.node = kwargs.get('node', None)
          
     def _add_options(self, x, zz):
         if (x=='mod'):
@@ -135,6 +136,8 @@ class _Construct_urls(object):
             return "&realm="+str(self.realm[zz])
         if (x=='var'):
             return "&variable="+str(self.var[zz])
+        if (x=='node'):
+            return "&data_node="+str(self.node[zz])
             
     def _get_url(self):
         if (self.mod):
@@ -152,6 +155,9 @@ class _Construct_urls(object):
         if (self.realm):
             for zz in range(len(self.realm)):
                     self._Durl = self._Durl + self._add_options('realm',zz)
+        if (self.node):
+            for zz in range(len(self.node)):
+                    self._Durl = self._Durl + self._add_options('node',zz)
         return self._Durl+"&limit="+str(self._limit)
      
     @classmethod
@@ -231,10 +237,11 @@ class _extract_info:
          self.year = year
          self.links = links
          self.set_server = kwargs.get('set_server', None)
+         self.node = kwargs.get('node', None)
     
     def _get_info(self):
          if self.links == None:
-             links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq, set_server=self.set_server)._get_wget(0)
+             links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq, node=self.node, set_server=self.set_server)._get_wget(0)
          else:
              links = self.links
          rlzn = _realizations(links)._all_realizations()
