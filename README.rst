@@ -77,6 +77,9 @@ Optional Arguments
 - ``-skip`` : Skip any item (model/experiment/realizations) from your download
 - ``-time`` : 'yes' to print out all available time periods
 - ``-yr`` : Select data for a time period (number of years)
+- ``-n`` : Select specific data nodes (multiple node selection allowed)
+- ``-serv`` : Set user-defined server
+- ``-cr`` : Select common realizations among selected experiments
 
 Demo
 -----
