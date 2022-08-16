@@ -47,7 +47,11 @@ Installation demo
 
 .. image:: docs/installation_demo.gif
 
-You may also install the package via conda - 
+You may also install the package via conda. Make sure you have added the conda-forge channel in your environment. You can add any channel by -
+
+``conda config --env --add channels conda-forge``
+
+Then install ``acccmip6`` from ``thassan`` channel:
 
 ``conda install -c thassan acccmip6``
 
