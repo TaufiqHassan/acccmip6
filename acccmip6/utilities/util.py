@@ -124,6 +124,7 @@ class _Construct_urls(object):
          self.freq = freq
          self.set_server = kwargs.get('set_server', None)
          self.node = kwargs.get('node', None)
+         self._offset = kwargs.get('offset', 0)
          
     def _add_options(self, x, zz):
         if (x=='mod'):
@@ -158,7 +159,7 @@ class _Construct_urls(object):
         if (self.node):
             for zz in range(len(self.node)):
                     self._Durl = self._Durl + self._add_options('node',zz)
-        return self._Durl+"&limit="+str(self._limit)
+        return self._Durl+"&limit="+str(self._limit)+"&offset="+str(self._offset)
      
     @classmethod
     def _set_limit(cls, limit):
@@ -204,7 +205,7 @@ class _realizations(object):
         er=[0]*len(self.links)
         for i in range(len(self.links)):
             try:
-                er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1][0:2])
+                er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('_r')[1].split('i')[0])
             except IndexError:
                 try:
                     er[i]=int(self.links[i].split('/')[len(self.links[i].split('/'))-1].split('-r')[1][0:2])
@@ -242,6 +243,12 @@ class _extract_info:
     def _get_info(self):
          if self.links == None:
              links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq, node=self.node, set_server=self.set_server)._get_wget(0)
+             tml_val = len(links)
+             while tml_val > 2500:
+                 print('\nToo many files! Re-constructing for possible missing links . . .')
+                 extra_links=_Construct_urls(self.var, self.mod, self.realm, self.exp, self.freq, node=self.node, set_server=self.set_server, offset=len(links))._get_wget(0)
+                 links = links + extra_links
+                 tml_val = len(extra_links)
          else:
              links = self.links
          rlzn = _realizations(links)._all_realizations()

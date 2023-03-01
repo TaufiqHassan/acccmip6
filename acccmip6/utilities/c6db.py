@@ -133,6 +133,12 @@ class SearchDB(object):
     def get_links(self, manual):
         if manual==0:
             links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, node=self.nd, set_server=self.set_server)._get_wget(0)
+            tml_val = len(links)
+            while tml_val > 2500:
+                print('\nToo many files! Re-constructing for possible missing links . . .')
+                extra_links=_Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, node=self.nd, set_server=self.set_server, offset=len(links))._get_wget(0)
+                links = links + extra_links
+                tml_val = len(extra_links)
         else:
             links = _Construct_urls(self._var, self._mod, self._realm, self._exp, self._freq, node=self.nd, set_server=self.set_server)._get_wget(1)
         return links
