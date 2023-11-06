@@ -19,6 +19,7 @@ Access Cmip6
 
 * GitHub repo: https://github.com/TaufiqHassan/acccmip6
 * Documentation: https://acccmip6.readthedocs.org.
+* This is the developmental branch for new feature implementations.
 
 Features
 --------
